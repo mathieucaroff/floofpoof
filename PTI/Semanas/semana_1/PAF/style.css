@@ -1,0 +1,12 @@
+.left-view {
+    width: 50%;
+    float: left;
+    border: 1px solid black;
+}
+
+.right-view {
+    width: 50%;
+    float: left;
+    border: 1px solid black;
+    
+}
