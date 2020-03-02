@@ -8,4 +8,8 @@ criar migracoes: python manage.py makemigrations
 
 aplicar migracoes: python manage.py migrate
 
+Nome admin: admin
 
+Email admin: admin@gmail.com
+
+Pass admin: Fculpass666
