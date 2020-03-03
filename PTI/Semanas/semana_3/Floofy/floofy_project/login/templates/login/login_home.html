@@ -5,15 +5,15 @@
 </title>    
 </head>
 <body>
-<h1>Login de estudante</h1>
+<h1>Login home</h1>
 <div>
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{% url 'login-home' %}">
       {% csrf_token %}
       <label>username</label>
-      <input type='text'>
+      <input type='text' name="username">
   
       <label>password</label>
-      <input type='password'>
+      <input type='password' name="password">
 
       <input type="submit" value="Login">
     </form>
