@@ -16,5 +16,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     subjects = models.ManyToManyField(Subject)
 
-
+class Group(models.Model):
+    subject = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    number = models.IntegerField(unique=True)
    
