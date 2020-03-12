@@ -12,4 +12,8 @@ Nome admin: admin
 
 Email admin: admin@gmail.com
 
-Pass admin: Fculpass666
+Pass admin: Fculpass123
+
+email prof: teacher@gmail.com
+
+pass prof: Teacher666

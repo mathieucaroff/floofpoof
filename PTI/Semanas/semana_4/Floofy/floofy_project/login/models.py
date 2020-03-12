@@ -85,7 +85,7 @@ class User(AbstractBaseUser):
         return self.is_admin
 
 class Group(models.Model):
-    subject = models.OneToOneField(Subject, on_delete=models.CASCADE, primary_key=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, primary_key=True)
     members = models.ManyToManyField(User)
     number = models.IntegerField(unique=True)
 
