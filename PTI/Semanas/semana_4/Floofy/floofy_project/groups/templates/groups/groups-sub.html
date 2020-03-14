@@ -9,7 +9,9 @@
 <br>
 {% if user.is_student %}
     {% for group in groups %}
+
         {% if group.subject == subject %}
+
             {% if user in group.members.all %}
                 <p>Meu grupo {{ group.number }}</p>
             {% endif %}

@@ -21,6 +21,7 @@ def Select_Subject(request,sub_id=None):
             raise Http404
         context = {}
         context['subject'] = subject
+        context['groups'] = Group.objects.all()
         return render(request, 'groups/groups-sub.html', context)
 
 def Set_Rules(request,sub_id=None):
