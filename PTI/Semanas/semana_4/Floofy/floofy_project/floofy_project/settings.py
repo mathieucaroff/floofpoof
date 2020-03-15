@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'upload_data.apps.UploadDataConfig',
     'mygroup.apps.MygroupConfig',
     'groups.apps.GroupsConfig',
     'login.apps.LoginConfig',
@@ -124,4 +125,6 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'login.User'
 
+MEDIA_URL = '/media/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
