@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Sair do grupo - {{ group.name }} de {{ group.subject}} </h1>
+<br>
+<p>De certeza que quer sair deste grupo?</p>
+<br>
+<form method="POST" action="{% url 'leave-group' subject.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Sim, sair do grupo.">
+</form>
+<br>
+<a href="{% url 'mygroup' subject.id %}">Back</a>
+</body>    
+</html>

@@ -9,11 +9,17 @@
 <br>
 <p>Ainda não tem grupo. Entre num grupo na lista abaixo, ou crie um novo.</p>
 <br>
-{% for group in groups %}
-<br>
-<a href="#">Entrar em {{ group.name }}</a>
-<br>
-{% endfor %}
+{% if groups %}
+    <form method="POST" action="{% url 'groups-join' subject.id %}">
+    {% csrf_token %}
+    {% for group in groups %}
+        <input type="radio" id={{group.id}} name="group_id" value={{group.id}}>
+        <label for={{group.id}}>{{ group.name }}</label><br>
+        <br>
+    {% endfor %}
+    <input type="submit" value="Entrar">
+    </form>
+{% endif %}
 <br>
 <a href="{% url 'groups-create' subject.id %}">Criar grupo</a>
 <br>

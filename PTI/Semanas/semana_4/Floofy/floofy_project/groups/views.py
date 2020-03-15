@@ -57,7 +57,14 @@ def join_group(request,sub_id=None):
     context = {}
     context['subject'] = subject
     context['groups'] = Group.objects.filter(subject=subject)
-    return Select_Subject(request,sub_id)
+    if request.method == "POST":
+        group = Group.objects.get(id=request.POST.get('group_id'))
+        group.members.add(request.user)
+        group.save()
+        context['group'] = group
+        return render(request,'mygroup/mygroup.html', context)
+    else:
+        return Select_Subject(request,sub_id)
 
 def Set_Rules(request,sub_id=None):
     if request.method == "GET":
