@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mygroup.apps.MygroupConfig',
     'groups.apps.GroupsConfig',
     'login.apps.LoginConfig',
     'django.contrib.admin',

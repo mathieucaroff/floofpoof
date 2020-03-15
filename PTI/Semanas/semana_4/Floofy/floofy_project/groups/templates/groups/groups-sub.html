@@ -7,28 +7,14 @@
 <body>
 <h1>Disciplina de {{ subject.name }} </h1>
 <br>
-{% if user.is_student %}
-    {% for group in groups %}
-
-        {% if group.subject == subject %}
-
-            {% if user in group.members.all %}
-                <p>Meu grupo {{ group.number }}</p>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-{% else %}
-    {% for group in groups %}
-        {% if group.subject == subject %}
-            <p>Grupo {{ group.number }}</p>
-        {% endif %}
-    {% endfor %}
+{% for group in groups %}
+    <p>Grupo {{ group.name }}</p>
+{% endfor %}
     <br>
     <a href="{% url 'groups-rules' subject.id %}">Regras de grupos</a>
     <br>
     <a href="{% url 'groups-stages' subject.id %}">Etapas do projeto</a>
     <br>    
-{% endif %}
 <a href="{% url 'select-subject' %}">Back</a>
 </body>    
 </html>

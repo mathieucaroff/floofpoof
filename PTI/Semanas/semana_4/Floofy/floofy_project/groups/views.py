@@ -10,7 +10,7 @@ from django.views.generic import (
 )
 
 @login_required(login_url="/")
-def select_subject(request):
+def list_subjects(request):
     return render(request, 'groups/sel-sub.html')
 
 def Select_Subject(request,sub_id=None):
@@ -21,8 +21,43 @@ def Select_Subject(request,sub_id=None):
             raise Http404
         context = {}
         context['subject'] = subject
-        context['groups'] = Group.objects.all()
-        return render(request, 'groups/groups-sub.html', context)
+        context['groups'] = Group.objects.filter(subject=subject)
+        for group in context['groups']:
+            if request.user in group.members.all():
+                context['group'] = group
+        if request.user.is_teacher:
+            return render(request, 'groups/groups-sub.html', context)
+        if request.user.is_student:
+            for group in Group.objects.filter(subject=subject):
+                if request.user in group.members.all():
+                    return render(request, 'mygroup/mygroup.html', context)
+            return render(request, 'groups/groups-join.html', context)
+
+def create_group(request,sub_id=None):
+    context = {}
+    subject = Subject.objects.get(id=sub_id)
+    context['subject'] = subject
+    if request.method == "POST":
+        newgroup = Group(subject=subject)
+        newgroup.save()
+        newgroup.members.add(request.user)
+        newgroup.name = request.POST.get('group_name')
+        newgroup.save()
+        context['group'] = newgroup
+        return render(request, 'mygroup/mygroup.html', context)
+    else:
+        return render(request, 'groups/groups-create.html', context)
+
+
+def join_group(request,sub_id=None):
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+    context = {}
+    context['subject'] = subject
+    context['groups'] = Group.objects.filter(subject=subject)
+    return Select_Subject(request,sub_id)
 
 def Set_Rules(request,sub_id=None):
     if request.method == "GET":
