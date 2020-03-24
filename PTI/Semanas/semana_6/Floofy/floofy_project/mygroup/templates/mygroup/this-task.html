@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Detalhes de tarefa - {{ task.name }}</h1>
+<br>
+<p>Grupo: {{ task.group }}</p>
+<p>Nome: {{ task.name }}</p>
+<p>Descrição: {{ task.description }}</p>
+<p>Prazo: {{ task.deadline }}</p>
+<p></p>
+<div>
+    <form method="POST" action="{% url 'this-task' task.id %}">
+        {% csrf_token %}
+        <label>Nome</label>
+        <input type='text' name="name">
+        <br>
+        <label>Descrição</label>
+        <input type='text' name="description">
+        <br>
+        <label>Prazo</label>
+        <input type='date' name="deadline">
+        <br>
+        <input type="submit" value="Editar">
+    </form>
+</div>
+<a href="{% url 'tasks' task.group.subject.id %}">Back</a>
+</body>    
+</html>
