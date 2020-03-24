@@ -66,7 +66,18 @@ def this_task(request, task_id=None):
     context['task'] = task 
 
     if request.method == "POST":
-        task = Task.objects.get(id=task_id)
+        
+        if request.POST.get('assign'):
+            task.owner = request.user
+            task.save()
+            return render(request, 'mygroup/this-task.html', context)
+
+        if request.POST.get('hours_dedicated'):
+            task.hours_dedicated += int(request.POST.get('hours_dedicated'))
+                
+        if request.POST.get('minutes_dedicated'):
+            task.minutes_dedicated += int(request.POST.get('minutes_dedicated'))
+    
         if request.POST.get('name'):
             task.name = request.POST.get('name')
         if request.POST.get('description'):

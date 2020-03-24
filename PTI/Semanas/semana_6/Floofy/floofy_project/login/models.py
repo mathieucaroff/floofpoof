@@ -95,7 +95,7 @@ class Group(models.Model):
 
 class Task(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    owner = models.OneToOneField(User, blank=True, null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
     hours_dedicated = models.IntegerField(default=0)
