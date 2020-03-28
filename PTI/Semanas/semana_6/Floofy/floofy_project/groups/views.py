@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject
+from login.models import User, Group, Subject, Stage
 from login.views import is_student, is_teacher
 from django.views.generic import (
     DetailView, UpdateView
@@ -32,6 +32,25 @@ def Select_Subject(request,sub_id=None):
                 if request.user in group.members.all():
                     return render(request, 'mygroup/mygroup.html', context)
             return render(request, 'groups/groups-join.html', context)
+
+def list_stages(request,sub_id=None):
+    print("smth")
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+    context = {}
+    context['subject'] = subject
+    stages = Stage.objects.filter(subject=subject)
+    context['stages'] = stages
+
+    if request.method == "POST":
+        stage = Stage(name=request.POST.get('name'), description=request.POST.get('description'), deadline=request.POST.get('deadline'))
+        stage.subject = context['subject']
+        stage.number = Stage.objects.filter(subject=subject).count() + 1
+        stage.save()
+
+    return render(request, 'groups/stages.html', context)
 
 def create_group(request,sub_id=None):
     context = {}

@@ -104,3 +104,13 @@ class Task(models.Model):
 
     def __str__(self):
         return f'Tarefa {self.name} do grupo {self.group.name}'
+
+class Stage(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    number = models.IntegerField(default=0)
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=100)
+    deadline = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return f'Etapa {self.number} da cadeira {self.subject}'
