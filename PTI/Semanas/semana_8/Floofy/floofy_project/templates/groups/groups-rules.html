@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Regras de grupos de {{ subject.name }}</h1>
+<br>
+<p>Nº máximo de elementos por grupo: {{ subject.groups_max }}</p>
+<p>Prazo para formar grupo: {{ subject.groups_deadline }}</p>
+<p>Grupos abertos? {{ subject.groups_on }}</p>
+<div>
+    <form method="POST" action="{% url 'groups-rules' subject.id %}">
+        {% csrf_token %}
+        <label>Nº máximo de elementos</label>
+        <input type='text' name="groups_max">
+        <br>
+        <label>Prazo</label>
+        <input type='date' name="groups_deadline">
+        <br>
+        <p>Abrir ou fechar grupos?</p>
+        <input type="radio" id="True" name="groups_on" value=True>
+        <label for="True">Abrir</label><br>
+        <input type="radio" id="False" name="groups_on" value=False>
+        <label for="False">Fechar</label><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<a href="{% url 'groups-subject' subject.id %}">Back</a>
+</body>    
+</html>

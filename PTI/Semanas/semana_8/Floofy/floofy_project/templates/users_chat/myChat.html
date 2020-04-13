@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Messages with {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
+<div id="chatContainer">
+  
+  <div id='chat-items'>
+    {% for chat in object.chatmessage_set.all %}
+      {% if user == chat.user  %}
+        <div class="my msg">
+          <!--<img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">-->
+          <p class="right">{{ chat.user }}</p>
+          <p>{{ chat.message }}</p>
+          <span class="time-left">{{ chat.timestamp }}</span>
+        </div>
+      {% else %}
+        <div class="other msg">
+          <!--<img src="/w3images/bandmember.jpg" alt="Avatar">-->
+          <p>{{ chat.user }}</p>
+          <p>{{ chat.message }}</p>
+          <span class="time-right">{{ chat.timestamp }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <hr>
+  <form id='chatForm' method='POST'> {% csrf_token %}
+      <input type="hidden"  id="myUsername" value="{{ user }}">
+      {{ chatForm.as_p }}
+      <input type='submit' class='btn btn-primary' value='Send'/>
+  </form>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script>
+  var loc = window.location
+  var formData = $("#chatForm")
+  var msgIn = $("#id_message")
+  var chatHolder = $("#chat-items")
+  var me = $("#myUsername").val()
+
+  var wsStart = "ws://"
+  if(loc.protocol == "https:"){
+    wsStart = "wss://"
+  }
+
+  var endpoint = wsStart + loc.host + loc.pathname
+  var socket = new WebSocket(endpoint)
+
+  //message im receiving
+  socket.onmessage = function(e){
+    console.log("message", e)
+    var chatData = JSON.parse(e.data)
+    chatHolder.append("<div class='my msg'><p class='right'>" + chatData.username + "</p> <p>" + chatData.message + "</p><span class='time-left'>" + chatData.timestamp + "</span></div>")
+  }
+
+  //message im sending
+  socket.onopen = function(e){
+    console.log("open", e)
+    formData.submit(function(event){
+      event.preventDefault()
+      var msgTxt = msgIn.val()
+      var finalData = {
+        'message': msgTxt
+      }
+      socket.send(JSON.stringify(finalData))
+      formData[0].reset()
+    })
+  }
+
+  socket.onerror = function(e){
+    console.log("error", e)
+  }
+
+  socket.onclose = function(e){
+    console.log("close", e)
+  }
+</script>
+{% endblock %}

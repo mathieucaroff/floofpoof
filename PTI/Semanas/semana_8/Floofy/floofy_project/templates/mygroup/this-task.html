@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Detalhes de tarefa - {{ task.name }}</h1>
+<br>
+<p>Grupo: {{ task.group }}</p>
+<p>Responsável: {{ task.owner.firstname }}</p>
+<p>Nome: {{ task.name }}</p>
+<p>Descrição: {{ task.description }}</p>
+<p>Prazo: {{ task.deadline }}</p>
+<p>Tempo dedicado: {{ task.hours_dedicated }}HH:{{ task.minutes_dedicated }}MM</p>
+<p></p>
+{% if task.owner == None %}
+<div>
+    <p>Editar tarefa</p>
+    <form method="POST" action="{% url 'this-task' task.id %}">
+        {% csrf_token %}
+        <label>Nome</label>
+        <input type='text' name="name">
+        <br>
+        <label>Descrição</label>
+        <input type='text' name="description">
+        <br>
+        <label>Prazo</label>
+        <input type='date' name="deadline">
+        <br>
+        <input type="submit" value="Editar">
+    </form>
+</div>
+<div>
+    <p>Quer ser o Responsável por esta tarefa?</p>
+    <form method="POST" action="{% url 'this-task' task.id %}">
+        {% csrf_token %}
+        <input type="radio" id="assign" name="assign" value="yes">
+        <label for="yes">Sim</label><br>   
+        <input type="submit" value="Designar"> 
+    </form>
+</div>
+{% else %}
+    {% if task.owner == user %}
+    <p>Adicionar contribuição</p>
+    <form method="POST" action="{% url 'this-task' task.id %}">
+        {% csrf_token %}
+        <label>Adicionar horas</label>
+        <input type='text' name="hours_dedicated">
+        <br>
+        <label>Adicionar minutos</label>
+        <input type='text' name="minutes_dedicated">
+        <br>
+        <input type="submit" value="Adicionar tempo">
+    </form>
+    {% endif %}
+{% endif %}
+<a href="{% url 'tasks' task.group.subject.id %}">Back</a>
+</body>    
+</html>

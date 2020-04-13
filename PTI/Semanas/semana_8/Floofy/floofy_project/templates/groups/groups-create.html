@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Criar grupo</h1>
+<br>
+<form method="POST" action="{% url 'groups-create' subject.id %}">
+    {% csrf_token %}
+    <label>Nome do grupo</label>
+    <input type='text' name="group_name">
+    <br>
+    <input type="submit" value="Criar">
+</form>
+<a href="{% url 'groups-join' subject.id %}">Back</a>
+</body>    
+</html>
