@@ -117,8 +117,7 @@ class Stage(models.Model):
         return f'Etapa {self.number} da cadeira {self.subject}'
 
 class Meeting(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,blank=True, null=True)
     owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     willgo = models.ManyToManyField(User, related_name = 'towillgo')
     wontgo = models.ManyToManyField(User, related_name = 'towontgo')

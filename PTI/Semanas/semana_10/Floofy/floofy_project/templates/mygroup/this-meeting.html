@@ -15,14 +15,14 @@
 <p>Data: {{ meeting.date }}</p>
 <p>Membros que vão: </p>
 <ul>
-{% for user in meeting.willgo %}
+{% for user in meeting.willgo.all %}
 <li>{{ user }}</li>
 {% endfor %}
 </ul>
 
 <p>Membros que não vão: </p>
 <ul>
-{% for user in meeting.wontgo %}
+{% for user in meeting.wontgo.all %}
 <li>{{ user }}</li>
 {% endfor %}
 </ul>
@@ -30,7 +30,7 @@
 {% if meeting.owner == user %}
 <div>
     <p>Editar tarefa</p>
-    <form method="POST" action="{% url 'tasks' subject.id %}">
+    <form method="POST" action="{% url 'this-meeting' meeting.id %}">
         {% csrf_token %}
         <label>Nome</label>
         <input type='text' name="name">
@@ -50,7 +50,7 @@
 {% endif %}
 <div>
     <p>Irei comparecer nesta reunião de grupo?</p>
-    <form method="POST" action="{% url 'this-task' task.id %}">
+    <form method="POST" action="{% url 'this-meeting' meeting.id %}">
         {% csrf_token %}
         <input type="radio" id="assign" name="assign" value="yes">
         <label for="yes">Sim</label>

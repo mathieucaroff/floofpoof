@@ -9,7 +9,7 @@
 <br>
 
 <div>
-    <form method="POST" action="{% url 'tasks' subject.id %}">
+    <form method="POST" action="{% url 'new-meeting' subject.id %}">
         {% csrf_token %}
         <label>Nome</label>
         <input type='text' name="name">
@@ -23,7 +23,7 @@
         <label>Data</label>
         <input type='date' name="date">
         <br>
-        <input type="submit" value="Criar tarefa">
+        <input type="submit" value="Marcar reunião">
     </form>
 </div>
 <a href="{% url 'meetings' subject.id %}">Back</a>

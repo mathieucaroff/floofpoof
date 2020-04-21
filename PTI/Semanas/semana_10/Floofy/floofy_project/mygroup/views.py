@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject, Task
+from login.models import User, Group, Subject, Task, Meeting
 from login.views import is_student, is_teacher
 from groups.views import Select_Subject, join_group
 
@@ -57,6 +57,22 @@ def tasks(request, sub_id=None):
 
     return render(request, 'mygroup/tasks.html', context)
 
+def meetings(request, sub_id=None):
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+    context = {}
+    context['subject'] = subject
+    groups = Group.objects.filter(subject=subject)
+    for group in groups:
+        if request.user in group.members.all():
+            context['group'] = group
+            print("hm")
+            context['meetings'] = Meeting.objects.filter(group=group)
+
+    return render(request, 'mygroup/meetings.html', context)
+
 def this_task(request, task_id=None):
     try:
         task = Task.objects.get(id=task_id)
@@ -87,3 +103,65 @@ def this_task(request, task_id=None):
         task.save()
 
     return render(request, 'mygroup/this-task.html', context)
+
+def this_meeting(request, meet_id=None):
+    try:
+        meeting = Meeting.objects.get(id=meet_id)
+    except:
+        raise Http404
+    context = {}
+    context['meeting'] = meeting
+
+    if request.method == "POST":
+        
+        if request.POST.get('assign'):
+            if request.POST.get('assign') == "yes":
+                context['meeting'].willgo.remove(request.user)
+                context['meeting'].wontgo.remove(request.user)
+                context['meeting'].willgo.add(request.user)
+
+            if request.POST.get('assign') == "no":
+                context['meeting'].willgo.remove(request.user)
+                context['meeting'].wontgo.remove(request.user)
+                context['meeting'].wontgo.add(request.user)
+
+            context['meeting'].save()
+            return render(request, 'mygroup/this-meeting.html', context)
+
+        if request.POST.get('name'):
+            context['meeting'].name = request.POST.get('name')
+        if request.POST.get('location'):
+            context['meeting'].name = request.POST.get('location')
+        if request.POST.get('description'):
+            context['meeting'].description = request.POST.get('description')
+        if request.POST.get('date'):
+            context['meeting'].deadline = request.POST.get('date')
+        context['meeting'].save()
+
+    return render(request, 'mygroup/this-meeting.html', context)
+
+def new_meeting(request, sub_id=None):
+    
+
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+
+    context = {}
+    context['subject'] = subject
+    groups = Group.objects.filter(subject=subject)
+    for group in groups:
+        if request.user in group.members.all():
+            context['group'] = group
+
+    
+    if request.method == "POST":
+        meeting = Meeting(owner=request.user,group=context['group'],name=request.POST.get('name'),location=request.POST.get('location'),description=request.POST.get('description'),date=request.POST.get('date'))
+        meeting.save()
+        context['meeting'] = meeting
+        return render(request, 'mygroup/this-meeting.html', context)
+
+
+    return render(request, 'mygroup/new-meeting.html', context)
+    
