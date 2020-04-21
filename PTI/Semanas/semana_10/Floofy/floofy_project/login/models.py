@@ -67,7 +67,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     
     def __str__(self):
-        return "fc"+str(self.id)
+        return "fc"+str(self.id)+" "+self.firstname + " " + self.surname
     
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -115,3 +115,15 @@ class Stage(models.Model):
 
     def __str__(self):
         return f'Etapa {self.number} da cadeira {self.subject}'
+
+class Meeting(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    willgo = models.ManyToManyField(User, related_name = 'towillgo')
+    wontgo = models.ManyToManyField(User, related_name = 'towontgo')
+    name = models.CharField(max_length=20)
+    location = models.CharField(max_length=20)
+    description = models.CharField(max_length=100)
+    date = models.DateField(blank=True, null=True)
+    

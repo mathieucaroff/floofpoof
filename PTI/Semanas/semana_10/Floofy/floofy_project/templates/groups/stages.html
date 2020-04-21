@@ -9,9 +9,24 @@
 <br>
 {% for stage in stages %}
     <p>{{ stage.name }}</p>
+    <p>{{ stage.id }}</p>
     <p>{{ stage.description }}</p>
     <p>{{ stage.deadline }}</p>
     <br>
+    {% if user.is_student %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="myfile">
+        <input type="hidden" name="stage" value={{ stage.id|stringformat:"i" }}>
+        <button type="submit">Upload/Update</button>
+    </form>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="submission" value={{ stage.id|stringformat:"i" }}>
+        <button type="submit">Download</button>
+    </form>
+    {% endif %}
 {% endfor %}
 
 {% if user.is_teacher %}

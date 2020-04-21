@@ -8,6 +8,11 @@ from login.views import is_student, is_teacher
 from django.views.generic import (
     DetailView, UpdateView
 )
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.core.files import File
+import os
+from django.conf import settings
 
 @login_required(login_url="/")
 def list_subjects(request):
@@ -34,7 +39,6 @@ def Select_Subject(request,sub_id=None):
             return render(request, 'groups/groups-join.html', context)
 
 def list_stages(request,sub_id=None):
-    print("smth")
     try:
         subject = Subject.objects.get(id=sub_id)
     except:
@@ -43,8 +47,30 @@ def list_stages(request,sub_id=None):
     context['subject'] = subject
     stages = Stage.objects.filter(subject=subject)
     context['stages'] = stages
-
-    if request.method == "POST":
+    context['groups'] = Group.objects.filter(subject=subject)
+    for group in context['groups']:
+        if request.user in group.members.all():
+            context['group'] = group
+       
+    if request.method == 'POST' and request.POST.get('submission'):
+        print("1")
+        path = str(request.POST.get('submission')) + "_" + str(context['group'].id)
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        print("2")
+        if os.path.exists(file_path):
+            print("3")
+            with open(file_path, 'rb') as fh:
+                print("4")
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+    
+    elif request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(str(request.POST.get('stage')) + "_" + str(context['group'].id), myfile)
+      
+    elif request.method == "POST":
         stage = Stage(name=request.POST.get('name'), description=request.POST.get('description'), deadline=request.POST.get('deadline'))
         stage.subject = context['subject']
         stage.number = Stage.objects.filter(subject=subject).count() + 1
