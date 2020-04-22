@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Area do grupo {{ group.name }} </h1>
+<br>
+<p>Elementos:</p>
+{% for member in group.members.all %}
+<p>{{ member }}</p>
+{% endfor %}
+
+{% for stage in stages %}
+    <p>{{ stage.name }}</p>
+    <p>{{ stage.deadline }}</p>
+    <br>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="submission" value={{ stage.id|stringformat:"i" }}>
+        <button type="submit">Abrir projeto submetido</button>
+    </form>
+    <a href="{% url 'new-feedback' stage.id group.id %}">Dar feedback</a>
+
+{% endfor %}
+
+<a href="{% url 'groups-subject' group.subject.id %}">Back</a>
+</body>    
+</html>

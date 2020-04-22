@@ -8,7 +8,7 @@
 <h1>Disciplina de {{ subject.name }} </h1>
 <br>
 {% for group in groups %}
-    <p>Grupo {{ group.name }}</p>
+    <a href="{% url 'this-group' group.id %}">Grupo {{ group.name }}</p>
 {% endfor %}
     <br>
     <a href="{% url 'groups-rules' subject.id %}">Regras de grupos</a>

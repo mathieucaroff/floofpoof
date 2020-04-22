@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject, Stage
+from login.models import User, Group, Subject, Stage, Feedback
 from login.views import is_student, is_teacher
 from django.views.generic import (
     DetailView, UpdateView
@@ -53,14 +53,10 @@ def list_stages(request,sub_id=None):
             context['group'] = group
        
     if request.method == 'POST' and request.POST.get('submission'):
-        print("1")
         path = str(request.POST.get('submission')) + "_" + str(context['group'].id)
         file_path = os.path.join(settings.MEDIA_ROOT, path)
-        print("2")
         if os.path.exists(file_path):
-            print("3")
             with open(file_path, 'rb') as fh:
-                print("4")
                 response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
@@ -92,6 +88,40 @@ def create_group(request,sub_id=None):
         return render(request, 'mygroup/mygroup.html', context)
     else:
         return render(request, 'groups/groups-create.html', context)
+
+def this_group(request,group_id=None):
+    try:
+        group = Group.objects.get(id=group_id)
+    except:
+        raise Http404
+    context = {}
+    context['group'] = group
+    stages = Stage.objects.filter(subject=group.subject)
+    context['stages'] = stages
+    if request.method == 'POST' and request.POST.get('submission'):
+        path = str(request.POST.get('submission')) + "_" + str(context['group'].id)
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+    return render(request, 'groups/this-group.html', context)
+
+def new_feedback(request,stage_id=None,group_id=None):
+    context = {}
+    context['stage'] = Stage.objects.get(id=stage_id)
+    context['group'] = Group.objects.get(id=group_id)
+    if request.method == "POST":
+        try:
+            feed = Feedback.objects.get(stage=stage_id,group=group_id)
+            feed.description = request.POST.get('description')
+        except Feedback.DoesNotExist:
+            feed = Feedback(owner=request.user,group=context['group'],stage=context['stage'],description=request.POST.get('description'))
+        feed.save()
+
+        return render(request, 'groups/feedback.html', context)
+    return render(request, 'groups/feedback.html', context)
 
 
 def join_group(request,sub_id=None):

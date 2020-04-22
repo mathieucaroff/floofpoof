@@ -7,7 +7,7 @@
 <body>
 <h1>Area de Grupo - {{ group.name }} de {{ group.subject}} </h1>
 <br>
-<a href="#">Feedback</a>
+<a href="{% url 'view-feedback' subject.id %}">Feedback</a>
 <br>
 <a href="#">Fóruns</a>
 <br>

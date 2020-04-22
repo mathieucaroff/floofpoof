@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject, Task, Meeting
+from login.models import User, Group, Subject, Task, Meeting, Feedback
 from login.views import is_student, is_teacher
 from groups.views import Select_Subject, join_group
 
@@ -68,10 +68,23 @@ def meetings(request, sub_id=None):
     for group in groups:
         if request.user in group.members.all():
             context['group'] = group
-            print("hm")
             context['meetings'] = Meeting.objects.filter(group=group)
 
     return render(request, 'mygroup/meetings.html', context)
+
+def view_feedback(request, sub_id=None):
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+    context = {}
+    context['subject'] = subject
+    groups = Group.objects.filter(subject=subject)
+    for group in groups:
+        if request.user in group.members.all():
+            context['group'] = group
+            context['feedbacks'] = Feedback.objects.filter(group=group)
+    return render(request, 'mygroup/feedback.html', context)
 
 def this_task(request, task_id=None):
     try:

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Area de feedback - {{ group.name }} de {{ group.subject}} </h1>
+<br>
+{% for feedback in feedbacks %}
+<p>Etapa: {{ feedback.stage.name }}</p>
+<p>Comentário de: {{ feedback.owner.firstname }}</p>
+<p>Descrição: {{ feedback.description }}</p>
+<br>
+{% endfor %}
+
+<a href="{% url 'mygroup' subject.id %}">Back</a>
+</body>    
+</html>

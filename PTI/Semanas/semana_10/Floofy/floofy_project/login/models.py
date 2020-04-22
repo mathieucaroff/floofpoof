@@ -125,4 +125,10 @@ class Meeting(models.Model):
     location = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
     date = models.DateField(blank=True, null=True)
+
+class Feedback(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,blank=True, null=True)
+    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE,blank=True, null=True)
+    description = models.CharField(max_length=200)
     
