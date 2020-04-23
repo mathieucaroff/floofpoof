@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>    
+</title>    
+</head>
+<body>
+<h1>Area de ficheiros do grupo {{ group.name }} </h1>
+<br>
+{% for member in group.members.all %}
+    <p>{{ member }}</p>    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="submission" value={{ member.id|stringformat:"i" }}>
+        <button type="submit">Download</button>
+    </form>
+{% endfor %}
+
+<p>Fazer novo upload? (aviso, irá substituir a sua submissão anterior)</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile">
+    <input type="hidden" name="upload" value={{ user.id|stringformat:"i" }}>
+    <button type="submit">Upload/Update</button>
+</form>
+<br>
+
+<a href="{% url 'mygroup' group.subject.id %}">Back</a>
+</body>    
+</html>

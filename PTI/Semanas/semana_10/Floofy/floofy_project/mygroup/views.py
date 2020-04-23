@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from login.models import User, Group, Subject, Task, Meeting, Feedback
 from login.views import is_student, is_teacher
 from groups.views import Select_Subject, join_group
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.core.files import File
+import os
 
 def mygroup(request, sub_id=None):
     try:
@@ -177,4 +181,29 @@ def new_meeting(request, sub_id=None):
 
 
     return render(request, 'mygroup/new-meeting.html', context)
+
+
+def group_files(request,group_id=None):
+    try:
+        group = Group.objects.get(id=group_id)
+    except:
+        raise Http404
+    context = {}
+    context['group'] = group
+       
+    if request.method == 'POST' and request.POST.get('submission'):
+        path = "mgf" + "_" + str(context['group'].id) + "_" + str(request.POST.get('submission'))
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+    
+    elif request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save("mgf" + "_" + str(context['group'].id) + "_" + str(request.POST.get('upload')), myfile)
+
+    return render(request, 'mygroup/group-files.html', context)
     
