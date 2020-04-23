@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>Upload Here</h1>
+<h1>Upload de dados de alunos</h1>
 <div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -17,7 +17,7 @@
 
     <br>
     <br>
-    <a href="{% url 'login-home' %}">Back</a>
+    <a href="{% url 'upload-area' %}">Back</a>
 </div>
 
 {% endblock %}

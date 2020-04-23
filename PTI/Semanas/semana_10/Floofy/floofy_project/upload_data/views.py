@@ -4,8 +4,10 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.files import File
 import os
-from django.conf import settings
+from django.db import transaction
 
+
+@transaction.atomic
 def upload_students(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -23,3 +25,6 @@ def upload_students(request):
             'students_saved': 'Dados de alunos guardados com sucesso!'
         })
     return render(request, 'upload_data/upload-students.html')
+
+def upload_area(request):
+    return render(request, 'upload_data/upload-area.html')
