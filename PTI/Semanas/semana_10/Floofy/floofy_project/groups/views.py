@@ -12,7 +12,6 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.files import File
 import os
-from django.conf import settings
 
 @login_required(login_url="/")
 def list_subjects(request):
