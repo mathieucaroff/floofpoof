@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Area de tarefas - {{ group.name }} de {{ group.subject}} </h1>
+<br>
+{% for task in tasks %}
+    <a href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+    <br>
+{% endfor %}
+
+
+<div>
+    <form method="POST" action="{% url 'tasks' subject.id %}">
+        {% csrf_token %}
+        <label>Nome</label>
+        <input type='text' name="name">
+        <br>
+        <label>Descrição</label>
+        <input type='text' name="description">
+        <br>
+        <label>Prazo</label>
+        <input type='date' name="deadline">
+        <br>
+        <input type="submit" value="Criar tarefa">
+    </form>
+</div>
+<a href="{% url 'mygroup' subject.id %}">Back</a>
+{% endblock %}

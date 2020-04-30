@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Detalhes de reunião - {{ meeting.name }}</h1>
+<br>
+<p>Grupo: {{ meeting.group }}</p>
+<p>Responsável: {{ meeting.owner.firstname }}</p>
+<p>Nome: {{ meeting.name }}</p>
+<p>Local: {{ meeting.location }}</p>
+<p>Descrição: {{ meeting.description }}</p>
+<p>Data: {{ meeting.date }}</p>
+<p>Membros que vão: </p>
+<ul>
+{% for user in meeting.willgo.all %}
+<li>{{ user }}</li>
+{% endfor %}
+</ul>
+
+<p>Membros que não vão: </p>
+<ul>
+{% for user in meeting.wontgo.all %}
+<li>{{ user }}</li>
+{% endfor %}
+</ul>
+
+{% if meeting.owner == user %}
+<div>
+    <p>Editar tarefa</p>
+    <form method="POST" action="{% url 'this-meeting' meeting.id %}">
+        {% csrf_token %}
+        <label>Nome</label>
+        <input type='text' name="name">
+        <br>
+        <label>Local</label>
+        <input type='text' name="location">
+        <br>
+        <label>Descrição</label>
+        <input type='text' name="description">
+        <br>
+        <label>Data</label>
+        <input type='date' name="date">
+        <br>
+        <input type="submit" value="Criar tarefa">
+    </form>
+</div>
+{% endif %}
+<div>
+    <p>Irei comparecer nesta reunião de grupo?</p>
+    <form method="POST" action="{% url 'this-meeting' meeting.id %}">
+        {% csrf_token %}
+        <input type="radio" id="assign" name="assign" value="yes">
+        <label for="yes">Sim</label>
+        <input type="radio" id="assign" name="assign" value="no">
+        <label for="yes">Não</label>
+        <br>   
+        <input type="submit" value="Confirmar"> 
+    </form>
+</div>
+<a href="{% url 'meetings' meeting.group.subject.id %}">Back</a>
+{% endblock %}

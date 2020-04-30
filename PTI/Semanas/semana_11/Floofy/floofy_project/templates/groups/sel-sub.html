@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Selecione a disciplina</h1>
+<br>
+{% for subject in user.subjects.all %}
+<br>
+<a href="{% url 'groups-subject' subject.id %}">{{ subject.name }}</a>
+<br>
+{% endfor %}
+<br>
+{% if user.is_student %}
+<a href="{% url 'logged-student' %}">Back</a>
+{% else %}
+<a href="{% url 'logged-teacher' %}">Back</a>
+{% endif %}
+{% endblock %}

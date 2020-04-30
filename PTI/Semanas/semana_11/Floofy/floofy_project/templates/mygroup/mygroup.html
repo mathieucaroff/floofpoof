@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user.firstname }} {{ user.surname}}</h1>
+<h3>Area de Grupo - {{ group.name }} de {{ group.subject }}</h3>
+<br>
+<a href="{% url 'view-feedback' subject.id %}">Feedback</a>
+<br>
+<a href="#">Fóruns</a>
+<br>
+<a href="/group_chat/{{ group.id }}">Mensagens de grupo</a>
+<br>
+<a href="{% url 'group-files' group.id %}">Artefactos</a>
+<br>
+<a href="#">Pontuação</a>
+<br>
+<a href="{% url 'tasks' subject.id %}">Tarefas</a>
+<br>
+<a href="{% url 'stages' subject.id %}">Etapas</a>
+<br>
+<a href="{% url 'meetings' subject.id %}">Reuniões</a>
+<br>
+<a href="{% url 'leave-group' subject.id %}">Sair deste grupo</a>
+<br>
+<a href="{% url 'select-subject' %}">Back</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Area de professor - {{ user.firstname }} {{ user.surname}}</h1>
+<br>
+<a href="/login-student">Cadeiras</a>
+<br>
+<a href="/login-teacher">Fóruns</a>
+<br>
+<a href="{% url 'select-subject' %}">Grupos</a>
+<br>
+<a href="/chat">Mensagens</a>
+<br>
+<a href="/login-teacher">Turma</a>
+<br>
+<a href="{% url 'logout' %}">Log out</a>
+
+
+{% endblock %}

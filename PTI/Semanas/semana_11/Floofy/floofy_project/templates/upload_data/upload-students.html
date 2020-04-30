@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Upload de dados de alunos</h1>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="myfile">
+        <button type="submit">Upload</button>
+    </form>
+    
+    {% if students_saved %}
+    <p>{{ students_saved }}</p>
+    {% endif %}
+
+    <br>
+    <br>
+    <a href="{% url 'upload-area' %}">Back</a>
+</div>
+
+{% endblock %}
