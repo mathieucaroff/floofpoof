@@ -3,6 +3,10 @@
 {% block content %}
 <h3>Messages in {{ object.group }}</h3>
 
+<div class="container" >
+  <div class="row centered">
+    <div class="col-lg-8 offset-lg-1">
+      
  <div id="chatContainer">
     <div id='chat-items'>
       {% for chat in object.message_set.all %}

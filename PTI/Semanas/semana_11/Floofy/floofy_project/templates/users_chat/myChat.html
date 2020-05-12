@@ -1,35 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Messages with {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
-<div id="chatContainer">
-  
-  <div id='chat-items'>
-    {% for chat in object.chatmessage_set.all %}
-      {% if user == chat.user  %}
-        <div class="my msg">
-          <!--<img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">-->
-          <p class="right">{{ chat.user }}</p>
-          <p>{{ chat.message }}</p>
-          <span class="time-left">{{ chat.timestamp }}</span>
+<div class="container" >
+  <div class="row centered">
+    <div class="col-lg-8 offset-lg-2">
+      <h3>Messages with {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
+        <div id="chatContainer" class="container" style="border: 1px solid black; ">
+          
+          <div id='chat-items'>
+            {% for chat in object.chatmessage_set.all %}
+              {% if user == chat.user  %}
+                <!-- <div class="my msg"> -->
+                  <div class="other msg">
+                  <!--<img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">-->
+                  <p class="right text-right ">{{ chat.user }}</p>
+                  <p class="text-right">{{ chat.message }}</p>
+                  <span class="time-left">{{ chat.timestamp }}</span>
+                </div>
+              {% else %}
+                <!-- <div class="other msg"> -->
+                  <div class="my msg">
+                  <!--<img src="/w3images/bandmember.jpg" alt="Avatar">-->
+                  <p>{{ chat.user }}</p>
+                  <p>{{ chat.message }}</p>
+                  <span class="time-right">{{ chat.timestamp }}</span>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <hr>
+          <form id='chatForm' method='POST'> {% csrf_token %}
+              <input type="hidden"  id="myUsername" value="{{ user }}">
+              {{ chatForm.as_p }}
+              <input type='submit' class='btn btn-primary' value='Send'/>
+          </form>
         </div>
-      {% else %}
-        <div class="other msg">
-          <!--<img src="/w3images/bandmember.jpg" alt="Avatar">-->
-          <p>{{ chat.user }}</p>
-          <p>{{ chat.message }}</p>
-          <span class="time-right">{{ chat.timestamp }}</span>
-        </div>
-      {% endif %}
-    {% endfor %}
+    </div>
+    <div class="col-lg-2 offset-lg-1" >
+      
+    </div>
   </div>
-  <hr>
-  <form id='chatForm' method='POST'> {% csrf_token %}
-      <input type="hidden"  id="myUsername" value="{{ user }}">
-      {{ chatForm.as_p }}
-      <input type='submit' class='btn btn-primary' value='Send'/>
-  </form>
 </div>
+
 {% endblock %}
 
 {% block script %}

@@ -2,17 +2,26 @@
 
 {% block content %}
 
-<h1>Login home</h1>
-<div>
-    <form method="POST" action="{% url 'login-home' %}">
-      {% csrf_token %}
-      <label>email</label>
-      <input type='text' name="email">
-  
-      <label>password</label>
-      <input type='password' name="password">
 
-      <input type="submit" value="Login">
+
+
+<div id="form_area">
+  <h1 class="h3 mb-3 font-weight-normal">Login home</h1>
+  <br>
+    <form method="POST" action="{% url 'login-home' %}" class="form-signin">
+      {% csrf_token %}
+      <label class="sr-only"></label>
+      <input class="form-control" type='text' name="email" placeholder="Email address" required="" autofocus="">
+      
+      <br>
+
+      <label class="sr-only"></label>
+      <input type='password' name="password"  class="form-control" placeholder="Password" required="">
+      <div class="checkbox mb-3">
+
+        <br>
+        <br>
+      <input type="submit" value="Login" class="btn btn-lg btn-primary btn-block">
     </form>
 
 </div>

@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Area de etapas de {{subject}} </h1>
+
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1">
+        <h1 class="text-center" id="area_student_title"> {{ user.firstname }} {{ user.surname}} <br>
+            Area de etapas de {{subject}} 
+        </h1>
+        </div>
+    </div>
+</div>
+
 <br>
 {% for stage in stages %}
     <p>{{ stage.name }}</p>

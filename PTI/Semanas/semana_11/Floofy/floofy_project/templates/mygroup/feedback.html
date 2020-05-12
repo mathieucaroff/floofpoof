@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Area de feedback - {{ group.name }} de {{ group.subject}} </h1>
+
+
+<div id="rf">   
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-10 offset-lg-1">
+            <h1 class="text-center" id="area_student_title">Area de feedback - {{ group.name }} de {{ group.subject}}  </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br>
 {% for feedback in feedbacks %}
 <p>Etapa: {{ feedback.stage.name }}</p>
@@ -10,5 +21,5 @@
 <br>
 {% endfor %}
 
-<a href="{% url 'mygroup' subject.id %}">Back</a>
+<a class="btn btn-dark" href="{% url 'mygroup' subject.id %}"> <i class="fas fa-long-arrow-alt-left"></i>Back</a>
 {% endblock %}

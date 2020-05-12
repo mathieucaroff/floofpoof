@@ -1,28 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Area de tarefas - {{ group.name }} de {{ group.subject}} </h1>
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1">
+        <h1 class="text-center" id="area_student_title">Area de estudante : {{ user.firstname }} {{ user.surname}} <br>
+            Area de tarefas - {{ group.name }} de {{ group.subject}} </h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a class="text-center btn btn-block btn-outline-dark" href="{% url 'mygroup' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
 <br>
-{% for task in tasks %}
-    <a href="{% url 'this-task' task.id %}">{{ task.name }}</a>
-    <br>
-{% endfor %}
+<div class="container ">
+    <div class="row centered">
+        <div class="col-lg-3 border-right border-left border-dark text-center">
+            <h3>Tarefas agendadas:</h3>
+            {% for task in tasks %}
+                <a class="text-center btn btn-block btn-outline-dark" href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+                <br>
+            {% endfor %}
+        </div>
 
+<div class="collg-5 offset-lg-2">
 
-<div>
-    <form method="POST" action="{% url 'tasks' subject.id %}">
+<h2>Criar tarefa</h2>
+    <form class="form-group" method="POST" action="{% url 'tasks' subject.id %}" autocomplete="off">
         {% csrf_token %}
-        <label>Nome</label>
-        <input type='text' name="name">
+        <label>Nome:</label>
+        <input class="form-control" type='text' name="name">
         <br>
-        <label>Descrição</label>
-        <input type='text' name="description">
+        <label>Descrição:</label>
+        <input class="form-control " type='text' name="description">
         <br>
-        <label>Prazo</label>
-        <input type='date' name="deadline">
+        <label>Prazo:</label>
+        <input class="form-control" type='date' name="deadline">
         <br>
-        <input type="submit" value="Criar tarefa">
+        <input class="btn btn-primary" type="submit" value="Criar tarefa">
     </form>
 </div>
-<a href="{% url 'mygroup' subject.id %}">Back</a>
+    </div>
+</div>
+
 {% endblock %}
