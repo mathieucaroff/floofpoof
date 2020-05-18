@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!-- {% load static %} -->
+ <div id="rf">   
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-10 offset-lg-1">
+            <h1 class="text-center" id="area_student_title">Area de estudante : {{ user.firstname }} {{ user.surname}} </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rrr">
+    <div class="container">
+        <div class="row centered"> 
+            <div class=" col-lg-4  offset-lg-4" id="tab_link">
+                    <br>
+                    
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-student">Cadeiras</a>
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-teacher">Fóruns</a>
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-subject' %}">Grupos</a> 
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/chat">Mensagens</a>
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-teacher">Turma</a>
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block  btn-outline-danger" href="{% url 'logout' %}">Log out</a>
+                        
+                </div>
+            </div>   
+    </div>
+</div>
+
+{% endblock %}

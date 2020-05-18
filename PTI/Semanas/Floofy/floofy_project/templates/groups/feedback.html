@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" >Grupo {{ group.name }} - etapa {{ stage.name }} </h1><br>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'this-group' group.id %}"> Back</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="border border-success">
+                <p>Dar feedback sobre esta submissão</p>
+                <div>
+                    <form method="POST" action="{% url 'new-feedback' stage.id group.id %}">
+                        {% csrf_token %}
+                        <label>Descrição</label>
+                        <input  type='text' name="description" >
+                        <!-- <textarea  class="form-control rounded-0" type='text' name="description" ></textarea> -->
+                        <br>
+                        <input class="btn btn-success" type="submit" value="Dar feedback">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

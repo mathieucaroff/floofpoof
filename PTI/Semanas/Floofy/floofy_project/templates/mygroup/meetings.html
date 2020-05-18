@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
+           <h3 class="text-center">Area de reuniões - {{ group.name }} de {{ group.subject}}</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+             <a class="text-center btn btn-block btn-outline-dark" href="{% url 'mygroup' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-4 offset-lg-4">
+            <a  class="btn btn-block btn-outline-success" href="{% url 'new-meeting' subject.id %}">Marcar nova runião</a>
+        </div>
+    </div>
+</div>
+<br>
+{% if meetings %}
+    {% for meeting in meetings %}
+        <div class="container">
+            <div class="row centered">
+                <h4>Reunião marcada: <small class="text-muted">{{ meeting.owner.firstname }}</small> </h4> <br>
+
+            </div>
+            <div class="row centered">
+                <div class="col-lg-6 offset-lg-3">
+                    <a id="bg_link" class="text-center btn btn-block " href="{% url 'this-meeting' meeting.id %}">{{ meeting.name }}</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+
+
+
+{% endblock %}

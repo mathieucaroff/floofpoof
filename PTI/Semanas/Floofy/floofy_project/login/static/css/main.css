@@ -1,0 +1,37 @@
+/* body{ 
+    background: #bcbcda; 
+    background: -webkit-linear-gradient(to right, #a3a3c4, #b9c6dd, #bcbdcf); 
+    background: linear-gradient(to right, #babadb, #bfcde6, #bcbdcf); 
+} */
+
+body{
+    background-color: #dad8d8;
+    color: #555;
+
+    -webkit-font-smothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+
+
+
+
+
+/* FOOTER */
+footer {
+    text-align: center;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #f5f5f5;
+    display: block;
+    
+    
+}
+
+/* #footer_f{
+    background-color: #2d2d2d;
+    text-align: center;
+
+} */

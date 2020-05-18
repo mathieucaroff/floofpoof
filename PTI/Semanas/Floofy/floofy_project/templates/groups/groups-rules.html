@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" id="area_student_title">Regras de grupos de {{ subject.name }}</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-1 mr-auto">
+             <a class="text-center btn btn-block btn-outline-dark" href="{% url 'groups-subject' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-2 ">
+            <p>Nº máximo de elementos por grupo: {{ subject.groups_max }}</p>
+            <p>Prazo para formar grupo: {{ subject.groups_deadline }}</p>
+            <p>Grupos abertos? {{ subject.groups_on }}</p>
+        </div>
+
+            <div class="col-lg-4 offset-lg-2">
+                <div id="rules_form" class="border border-success text-center">
+                    <form method="POST" action="{% url 'groups-rules' subject.id %}">
+                        {% csrf_token %}
+                        <div class="text-center">
+                            <label><h5>Nº máximo de elementos</h5></label>
+                            <input class="form-control" type='number' name="groups_max" min="1">
+                        </div>
+                        <br>
+                        <label>Prazo</label>
+                        <input class="form-control" type='date' name="groups_deadline">
+                        <br>
+                        <h5>Abrir ou fechar grupos?</h5>
+                        <div class="form-check-inline">
+                            <label class="form-check-label" for="True">Abrir</label>
+                            <input  class="form-check-input" type="radio" id="True" name="groups_on" value=True>
+                            <label class="form-check-label" for="False">Fechar</label>
+                            <input class="form-check-input" type="radio" id="False" name="groups_on" value=False>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="text-center">
+                            <input class="btn btn-succes" type="submit" value="Submit">
+                        </div>
+                        
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

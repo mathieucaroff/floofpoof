@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
+           <h1>Lista de grupos</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+             <a class="text-center btn btn-block btn-outline-dark" href="{% url 'select-subject' %}">Back</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-10 offset-lg-1 text-center">
+            <p class="text-danger ">Ainda não tem grupo. Entre num grupo na lista abaixo, ou crie um novo.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-4 offset-lg-4">
+            <a  class="btn btn-block btn-outline-success" href="{% url 'groups-create' subject.id %}">Criar grupo</a>
+        </div>
+    </div>
+</div>
+
+<br>
+{% if groups %}
+    <form method="POST" action="{% url 'groups-join' subject.id %}">
+    {% csrf_token %}
+    {% for group in groups %}
+        <input required="" type="radio" id={{group.id}} name="group_id" value={{group.id}}>
+        <label for={{group.id}}>{{ group.name }}</label><br>
+        <br>
+    {% endfor %}
+    <input type="submit" value="Entrar">
+    </form>
+{% endif %}
+<br>
+
+<br>
+
+{% endblock %}

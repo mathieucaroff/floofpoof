@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
+           <h3 class="text-center" id="area_student_title">  Nova reunião - {{ group.name }} de {{ group.subject}}</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+             <a class="text-center btn btn-block btn-outline-dark" href="{% url 'meetings' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="container">
+    <div class="row centerd">
+        <div class="col-lg-4 offset-lg-4">
+            <form method="POST" action="{% url 'new-meeting' subject.id %}">
+                {% csrf_token %}
+                <label>Nome</label>
+                <input class="form-control" type='text' name="name" required="">
+                <br>
+                <label>Local</label>
+                <input class="form-control" type='text' name="location" required="">
+                <br>
+                <label>Descrição</label>
+                <input class="form-control" type='text' name="description" required="">
+                <br>
+                <label>Data</label>
+                <input class="form-control" type='date' name="date" required="">
+                <br>
+                <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Marcar reunião">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

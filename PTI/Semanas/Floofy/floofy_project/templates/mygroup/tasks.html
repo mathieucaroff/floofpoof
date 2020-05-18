@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1">
+        <h1 class="text-center" id="area_student_title">Area de estudante : {{ user.firstname }} {{ user.surname}} <br>
+            Area de tarefas - {{ group.name }} de {{ group.subject}} </h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a class="text-center btn btn-block btn-outline-dark" href="{% url 'mygroup' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container ">
+    <div class="row ">
+        <div class="col-lg-4 border-right border-left border-dark text-center offset-lg-1">
+            <h3>Tarefas agendadas:</h3>
+            {% for task in tasks %}
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+
+<div class="col-lg-3 offset-lg-2">
+
+<h2>Criar tarefa</h2>
+    <form class="form-group" method="POST" action="{% url 'tasks' subject.id %}" autocomplete="off">
+        {% csrf_token %}
+        <label>Nome:</label>
+        <input class="form-control" type='text' name="name" required="">
+        <br>
+        <label>Descrição:</label>
+        <input class="form-control " type='text' name="description" required="">
+        <br>
+        <label>Prazo:</label>
+        <input class="form-control" type='date' name="deadline" required="">
+        <br>
+        <input class="btn btn-outline-success" type="submit" value="Criar tarefa">
+    </form>
+</div>
+    </div>
+</div>
+
+{% endblock %}

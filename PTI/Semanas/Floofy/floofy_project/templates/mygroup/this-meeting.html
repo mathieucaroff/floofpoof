@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
+           <h3 class="text-center">Detalhes de reunião - {{ meeting.name }}</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+             <a class="text-center btn btn-block btn-outline-dark" href="{% url 'meetings' meeting.group.subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="border border-success">
+                <p>Irei comparecer nesta reunião de grupo?</p>
+                <form method="POST" action="{% url 'this-meeting' meeting.id %}"  >
+                    {% csrf_token %}
+                    <input type="radio" id="assign" name="assign" value="yes"  required="">
+                    <label for="yes">Sim</label>
+                    <input type="radio" id="assign" name="assign" value="no">
+                    <label for="yes">Não</label>
+                    <br>   
+                    <input class="btn btn-success" type="submit" value="Confirmar"> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="container">
+    <div class="row"> 
+        <div class=" col-lg-3  offset-lg-2" >
+            <br>
+            <p>Grupo: {{ meeting.group }}</p>
+            <p>Responsável: {{ meeting.owner.firstname }}</p>
+            <p>Nome: {{ meeting.name }}</p>
+            <p>Local: {{ meeting.location }}</p>
+            <p>Descrição: {{ meeting.description }}</p>
+            <p>Data: {{ meeting.date }}</p>
+            <p class="text-success">Membros que vão: </p>
+            <ul>
+            {% for user in meeting.willgo.all %}
+            <li>{{ user }}</li>
+            {% endfor %}
+            </ul>
+
+            <p class="text-danger">Membros que não vão: </p>
+            <ul>
+            {% for user in meeting.wontgo.all %}
+            <li>{{ user }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+
+
+        {% if meeting.owner == user %}
+        <div class="col-lg-3 offset-lg-2 ">
+            <br>
+            <div class="text-center">
+                <h4>Editar tarefa</h4>
+            </div>
+            
+            <form method="POST" action="{% url 'this-meeting' meeting.id %}">
+                {% csrf_token %}
+                <label>Nome</label>
+                <input class="form-control" type='text' name="name"  required="">
+                <br>
+                <label>Local</label>
+                <input  class="form-control" type='text' name="location"  required="">
+                <br>
+                <label>Descrição</label>
+                <input class="form-control" type='text' name="description"  required="">
+                <br>
+                <label>Data</label>
+                <input class="form-control"  type='date' name="date"  required="">
+                <br>
+                <div class="text-center">
+                    <input class="btn btn-outline-success" type="submit" value="Editar tarefa">
+                </div>
+               
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

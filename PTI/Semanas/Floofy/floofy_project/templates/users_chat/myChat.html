@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <div class="container">
+  <div class="row text-left">
+      <div class="col-lg-1">
+          <a id="link_nav" class="text-center btn btn-block btn-outline-dark"  href="/chat"> <i class="fas fa-long-arrow-alt-left"></i>Back</a>
+      </div>
+  </div> -->
+</div>
+<div class="container" >
+  <div class="row centered">
+    <div class="clo-lg-1"><a id="link_nav" class="text-center btn btn-block btn-outline-dark"  href="/chat"> Back</a></div>
+    <div class="col-lg-7 offset-lg-2">
+      <div class="text-center">
+        <h3>Chat com {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
+      </div>
+        <div id="chatContainer" class="container" >
+          
+          <div id='chat-items'>
+            {% for chat in object.chatmessage_set.all %}
+              {% if user == chat.user  %}
+                <div class="my msg">
+                  <!--<img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right">-->
+                  <p class="right ">{{ chat.user }}</p>
+                  <p >{{ chat.message }}</p>
+                  <span class="time-left">{{ chat.timestamp }}</span>
+                </div>
+              {% else %}
+                <div class="other msg">
+                  <!--<img src="/w3images/bandmember.jpg" alt="Avatar">-->
+                  <p>{{ chat.user }}</p>
+                  <p>{{ chat.message }}</p>
+                  <span class="time-right">{{ chat.timestamp }}</span>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <hr>
+          <div  class="row justify-content-end">
+            <div class="col">
+              <form id='chatForm' method='POST'> {% csrf_token %}
+                <input type="hidden"  id="myUsername" value="{{ user }}" autocomplete="off">
+                {{ chatForm.as_p }}
+                <div class="text-center">
+                  <input type='submit' class='btn btn-primary' value='Send'>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+    </div>      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script>
+
+  // $("#chatContainer").scrollTop($("#chatContainer").height());
+  myscroll = $('#chatContainer');
+    myscroll.scrollTop(myscroll.get(0).scrollHeight)
+
+
+  var loc = window.location
+  var formData = $("#chatForm")
+  var msgIn = $("#id_message")
+  var chatHolder = $("#chat-items")
+  var me = $("#myUsername").val()
+
+  var wsStart = "ws://"
+  if(loc.protocol == "https:"){
+    wsStart = "wss://"
+  }
+
+  var endpoint = wsStart + loc.host + loc.pathname
+  var socket = new WebSocket(endpoint)
+
+  //message im receiving
+  socket.onmessage = function(e){
+    console.log("message", e)
+    var chatData = JSON.parse(e.data)
+    if(me == chatData.username){
+      chatHolder.append("<div class='my msg'><p class='right '>" + chatData.username + "</p> <p>" + chatData.message + "</p><span class='time-left'>" + chatData.timestamp + "</span></div>")
+
+    }else{
+      chatHolder.append("<div class='other msg'><p class='right'>" + chatData.username + "</p> <p>" + chatData.message + "</p><span class='time-left'>" + chatData.timestamp + "</span></div>")
+
+    }
+  }
+
+  //message im sending
+  socket.onopen = function(e){
+    console.log("open", e)
+    formData.submit(function(event){
+      event.preventDefault()
+      var msgTxt = msgIn.val()
+      var finalData = {
+        'message': msgTxt
+      }
+      socket.send(JSON.stringify(finalData))
+      formData[0].reset()
+    })
+  }
+
+  socket.onerror = function(e){
+    console.log("error", e)
+  }
+
+  socket.onclose = function(e){
+    console.log("close", e)
+  }
+
+
+
+</script>
+{% endblock %}
