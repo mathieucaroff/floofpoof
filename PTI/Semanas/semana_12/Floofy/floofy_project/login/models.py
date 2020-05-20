@@ -82,6 +82,16 @@ class User(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
 
+    def getAVGScore(self):
+        num = Score.objects.filter(To=self).count()
+        if num == 0:
+            return None
+        scores = Score.objects.filter(To=self)
+        avg = 0.0
+        for score in range(num):
+            avg += float(scores[score].value)
+        return avg/num
+
     @property
     def is_staff(self):
         "Is the user a member of staff?"
@@ -135,4 +145,10 @@ class Feedback(models.Model):
     owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE,blank=True, null=True)
     description = models.CharField(max_length=200)
+    
+class Score(models.Model):
+    From = models.ForeignKey(User, related_name = 'From', on_delete=models.CASCADE)
+    To = models.ForeignKey(User, related_name = 'To', on_delete=models.CASCADE)
+    value = models.IntegerField(default=0)
+    comment = models.CharField(max_length=200,blank=True, null=True)
     

@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject, Task, Meeting, Feedback
+from login.models import User, Group, Subject, Task, Meeting, Feedback, Score
 from login.views import is_student, is_teacher
 from groups.views import Select_Subject, join_group
 from django.conf import settings
@@ -213,3 +213,36 @@ def group_files(request,group_id=None):
 
     return render(request, 'mygroup/group-files.html', context)
     
+def scores(request, sub_id=None):
+    try:
+        subject = Subject.objects.get(id=sub_id)
+    except:
+        raise Http404
+    context = {}
+    context['subject'] = subject
+    groups = Group.objects.filter(subject=subject)
+    for group in groups:
+        if request.user in group.members.all():
+            context['group'] = group
+
+    voted = []
+    notvoted = []
+    for member in context['group'].members.all():
+        if member != request.user:
+            if Score.objects.filter(To=member).filter(From=request.user):
+                voted.append(member)
+            else:
+                notvoted.append(member)
+    context['voted'] = voted
+    context['notvoted'] = notvoted
+
+    context['comments'] = []
+    for score in Score.objects.filter(To=request.user):
+        context['comments'].append(score.comment)
+
+    if request.method == "POST":
+        member = User.objects.get(pk=request.POST.get('member_id'))
+        score = Score(From=request.user,To=member,value=int(request.POST.get('score')),comment=request.POST.get('description'))
+        score.save()
+
+    return render(request, 'mygroup/scores.html', context)

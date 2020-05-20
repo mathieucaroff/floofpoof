@@ -11,4 +11,5 @@ urlpatterns = [
     path('<int:sub_id>/new-meeting/', views.new_meeting, name='new-meeting'),
     path('<int:meet_id>/this-meeting/', views.this_meeting, name='this-meeting'),
     path('<int:group_id>/group-files/', views.group_files, name='group-files'),
+    path('<int:sub_id>/scores/', views.scores, name='scores'),
 ]
