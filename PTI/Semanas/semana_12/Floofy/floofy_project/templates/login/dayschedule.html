@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<p>{{ user.firstname }} {{ user.surname }}</p>
+<h1>Horário de {{ day }}</h1>
+{% for block in blocks %}
+    <p>Cadeira: {{ block.subject.name }}</p>
+    <p>Sala: {{ block.room }}</p>
+    <p>Período: {{ block.From }} - {{ block.To }}</p>
+    <br>
+{% endfor %}
+
+{% endblock %}

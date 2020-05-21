@@ -10,6 +10,16 @@ class Subject(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+class Block(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    day = models.IntegerField(default=0)
+    From = models.TimeField(blank=True, null=True)
+    To = models.TimeField(blank=True, null=True)
+    room = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f'turno {self.id} de {self.subject.name}'
+        
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         """
@@ -59,6 +69,7 @@ class User(AbstractBaseUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
     subjects = models.ManyToManyField(Subject, null=True, blank=True)
+    blocks = models.ManyToManyField(Block, null=True, blank=True)
     firstname = models.CharField(blank=True, null=True, max_length=20)
     surname = models.CharField(blank=True, null=True, max_length=20)
     #in_date = models.DateField(blank=True, null=True)
@@ -151,4 +162,3 @@ class Score(models.Model):
     To = models.ForeignKey(User, related_name = 'To', on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     comment = models.CharField(max_length=200,blank=True, null=True)
-    

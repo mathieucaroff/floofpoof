@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<br>
+<a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'monday' %}">Segunda</a>
+<br>
+<a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'tuesday' %}">Terça</a>
+<br>
+<a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'wednesday' %}">Quarta</a>
+<br>
+<a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'thursday' %}">Quinta</a>
+<br>
+<a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'friday' %}">Sexta</a>
+<br>
+
+{% endblock %}

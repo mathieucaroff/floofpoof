@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from login.models import User, Group, Subject
+from login.models import User, Group, Subject, Block
 
 def is_student(user):
     return user.is_student
@@ -46,3 +46,51 @@ def log_in(request):
             return redirect('login-home')
             
     return render(request, 'login/login_home.html')
+
+def schedule(request):
+    return render(request, 'login/schedule.html')
+
+def monday(request):
+    blocks = []
+    context = {}
+    for block in request.user.blocks.filter(day=2):
+        blocks.append(block)
+    context['blocks'] = blocks
+    context['day'] = "Segunda feira"
+    return render(request, 'login/dayschedule.html', context)
+
+def tuesday(request):
+    blocks = []
+    context = {}
+    for block in request.user.blocks.filter(day=3):
+        blocks.append(block)
+    context['blocks'] = blocks
+    context['day'] = "Terça feira"
+    return render(request, 'login/dayschedule.html', context)
+
+def wednesday(request):
+    blocks = []
+    context = {}
+    for block in request.user.blocks.filter(day=4):
+        blocks.append(block)
+    context['blocks'] = blocks
+    context['day'] = "Quarta feira"
+    return render(request, 'login/dayschedule.html', context)
+
+def thursday(request):
+    blocks = []
+    context = {}
+    for block in request.user.blocks.filter(day=5):
+        blocks.append(block)
+    context['blocks'] = blocks
+    context['day'] = "Quinta feira"
+    return render(request, 'login/dayschedule.html', context)
+
+def friday(request):
+    blocks = []
+    context = {}
+    for block in request.user.blocks.filter(day=6):
+        blocks.append(block)
+    context['blocks'] = blocks
+    context['day'] = "Sexta feira"
+    return render(request, 'login/dayschedule.html', context)

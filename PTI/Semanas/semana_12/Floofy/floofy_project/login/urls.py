@@ -6,5 +6,11 @@ urlpatterns = [
     path('', views.log_in, name='login-home'),
     path('logged-student/', views.loggedstudent, name='logged-student'),
     path('logged-teacher/', views.loggedteacher, name='logged-teacher'),
+    path('schedule/', views.schedule, name='schedule'),
+    path('schedule/monday/', views.monday, name='monday'),
+    path('schedule/tuesday/', views.tuesday, name='tuesday'),
+    path('schedule/wednesday/', views.wednesday, name='wednesday'),
+    path('schedule/thursday/', views.thursday, name='thursday'),
+    path('schedule/friday/', views.friday, name='friday'),
     path('logout/', auth_views.LogoutView.as_view(template_name='login/logout.html'), name='logout')
 ]

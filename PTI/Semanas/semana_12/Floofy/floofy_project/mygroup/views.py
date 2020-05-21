@@ -224,6 +224,11 @@ def scores(request, sub_id=None):
     for group in groups:
         if request.user in group.members.all():
             context['group'] = group
+    
+    if request.method == "POST":
+        member = User.objects.get(pk=request.POST.get('member_id'))
+        score = Score(From=request.user,To=member,value=int(request.POST.get('score')),comment=request.POST.get('description'))
+        score.save()
 
     voted = []
     notvoted = []
@@ -239,10 +244,4 @@ def scores(request, sub_id=None):
     context['comments'] = []
     for score in Score.objects.filter(To=request.user):
         context['comments'].append(score.comment)
-
-    if request.method == "POST":
-        member = User.objects.get(pk=request.POST.get('member_id'))
-        score = Score(From=request.user,To=member,value=int(request.POST.get('score')),comment=request.POST.get('description'))
-        score.save()
-
     return render(request, 'mygroup/scores.html', context)

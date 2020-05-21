@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Subject, Group, Task, Stage, Meeting, Feedback, Score
+from .models import User, Subject, Group, Task, Stage, Meeting, Feedback, Score, Block
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group as G
@@ -64,7 +64,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('is_active', 'date_of_birth', 'is_student', 'is_teacher', 'subjects', 'firstname', 'surname')
+        ('Personal info', {'fields': ('is_active', 'date_of_birth', 'is_student', 'is_teacher', 'subjects', 'blocks', 'firstname', 'surname')
 }),
         ('Permissions', {'fields': ('is_admin',)}),
     )
@@ -100,3 +100,5 @@ admin.site.register(Meeting)
 admin.site.register(Feedback)
 
 admin.site.register(Score)
+
+admin.site.register(Block)

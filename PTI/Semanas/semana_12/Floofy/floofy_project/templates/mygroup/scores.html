@@ -67,8 +67,7 @@
         <div class="col-lg-4 offset-lg-2">
             <p class="text-danger">Não avaliados:</p>
             {% for member in notvoted %}
-                <p>{{ member.firstname }}</p>
-                <p>{{ member.surname }}</p>
+                <p>{{ member.firstname }} {{ member.surname }}</p>
                 <form method="POST" action="{% url 'scores' subject.id %}">
                     {% csrf_token %}
                     <input type="hidden" id={{member.id}} name="member_id" value={{member.id}}>
