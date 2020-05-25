@@ -48,6 +48,7 @@ def list_stages(request,sub_id=None):
     stages = Stage.objects.filter(subject=subject)
     context['stages'] = stages
     context['groups'] = Group.objects.filter(subject=subject)
+
     for group in context['groups']:
         if request.user in group.members.all():
             context['group'] = group
@@ -61,11 +62,12 @@ def list_stages(request,sub_id=None):
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
     
-    elif request.method == 'POST' and request.FILES['myfile']:
+    elif request.method == 'POST' and request.user.is_student and request.FILES['myfile']:
+        
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(str(request.POST.get('stage')) + "_" + str(context['group'].id), myfile)
-      
+
     elif request.method == "POST":
         stage = Stage(name=request.POST.get('name'), description=request.POST.get('description'), deadline=request.POST.get('deadline'))
         stage.subject = context['subject']
@@ -165,16 +167,3 @@ def Set_Rules(request,sub_id=None):
 
         
 
-
-
-class Set_Stages(DetailView):
-    model = Subject
-    template_name = 'groups/groups-sub.html'
-    context_object_name = 'subject'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['groups'] = Group.objects.all()
-        context['users'] = User.objects.all()
-        context['subjects'] = Subject.objects.all()
-        return context

@@ -1,0 +1,28 @@
+  
+{% extends "base.html" %}
+{% block content %}
+<h1>Disciplina: {{ subject.name }}</h1>
+  <article class="media content-section">
+  <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.subject.id object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.subject.id object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">{{ object.content }}</p>
+    </div>
+  </article>
+  <div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

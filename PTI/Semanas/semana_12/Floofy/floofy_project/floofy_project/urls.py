@@ -26,5 +26,6 @@ urlpatterns = [
     path('groups/', include('groups.urls')),
     path('upload-data/', include('upload_data.urls')),
     path('chat/', include('users_chat.urls')),
+    path('forum/', include('forum.urls')),
     path('group_chat/', include('group_chat.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

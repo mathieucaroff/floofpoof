@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Subject, Group, Task, Stage, Meeting, Feedback, Score, Block
+from .models import User, Subject, Group, Task, Stage, Meeting, Feedback, Score, Block, Post
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group as G
@@ -102,3 +102,5 @@ admin.site.register(Feedback)
 admin.site.register(Score)
 
 admin.site.register(Block)
+
+admin.site.register(Post)

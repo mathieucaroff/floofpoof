@@ -25,8 +25,8 @@
     <div class="row">
         <div class="col-lg-4 offset-lg-2">
             {% for stage in stages %}
+                <p>Número:{{ stage.number }}</p>
                 <p>{{ stage.name }}</p>
-                <p>ID:{{ stage.id }}</p>
                 <p>{{ stage.description }}</p>
                 <p>{{ stage.deadline }}</p>
                 <br>

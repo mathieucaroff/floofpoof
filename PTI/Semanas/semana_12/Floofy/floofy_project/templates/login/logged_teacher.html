@@ -14,18 +14,18 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 offset-lg-4">
             <br>
 
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-student">Cadeiras</a>
+            <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-student">Cadeiras</a>
             <br>
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-teacher">Fóruns</a>
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-forum-subject' %}">Fóruns</a>
             <br>
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-subject' %}">Grupos</a>
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-subject' %}">Grupos</a> 
             <br>
             <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/chat">Mensagens</a>
             <br>
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/login-teacher">Turma</a>
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'schedule' %}">Horário</a>
             <br>
-            <a id="link_nav" class="text-center btn btn-block btn-outline-danger" href="{% url 'logout' %}">Log out</a>
-
+            <a id="link_nav" class="text-center btn btn-block  btn-outline-danger" href="{% url 'logout' %}">Log out</a>
+               
         </div>
 </div>
 

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Disciplina: {{ subject.name }} </h1>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-forum-subject' %}">Back</a>
+        </div>
+    </div>
+</div>
+    {% for post in posts %}
+              <a>Autor: {{ post.author }}</a>
+              <small class="text-muted">Data: {{ post.date_posted|date:"F d, Y" }}</small>
+            <h3><a href="{% url 'post-detail' post.subject.id post.id %}">Título: {{ post.title }}</a></h2>
+            <p>Conteúdo: {{ post.content }}</p>
+    {% endfor %}
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'post-create' subject.id %}">Novo post</a>
+        </div>
+    </div>
+
+{% endblock content %}

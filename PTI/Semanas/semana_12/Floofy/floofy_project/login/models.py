@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.utils import timezone
+from django.urls import reverse
 
 class Subject(models.Model):
     name = models.CharField(max_length=50)
@@ -162,3 +164,24 @@ class Score(models.Model):
     To = models.ForeignKey(User, related_name = 'To', on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     comment = models.CharField(max_length=200,blank=True, null=True)
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title + " " + str(self.id)
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.pk, 'sub_id': self.subject.id})
+
+
+
+
+    
+
+
+

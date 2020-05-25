@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
-from .views import (
-    Set_Stages
-)
+
 
 urlpatterns = [
     path('', views.list_subjects, name='select-subject'),

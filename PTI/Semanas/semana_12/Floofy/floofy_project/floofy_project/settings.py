@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'forum.apps.ForumConfig',
     'upload_data.apps.UploadDataConfig',
     'mygroup.apps.MygroupConfig',
     'groups.apps.GroupsConfig',
