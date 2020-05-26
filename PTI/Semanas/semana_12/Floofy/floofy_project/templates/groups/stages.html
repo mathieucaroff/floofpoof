@@ -23,31 +23,41 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 offset-lg-2">
+        <div class="col-lg-6 offset-lg-3" >
+
             {% for stage in stages %}
-                <p>Número:{{ stage.number }}</p>
-                <p>{{ stage.name }}</p>
-                <p>{{ stage.description }}</p>
-                <p>{{ stage.deadline }}</p>
-                <br>
-                {% if user.is_student %}
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="file" name="myfile">
-                        <input type="hidden" name="stage" value={{ stage.id|stringformat:"i" }}>
-                        <button type="submit">Upload/Update</button>
-                    </form>
+                <div id="stages_container">
+
+                    <p>Número:{{ stage.number }}</p>
+                    <p>{{ stage.name }}</p>
+                    <p>{{ stage.description }}</p>
+                    <p class="text-right">{{ stage.deadline }}</p>
                     <br>
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="submission" value={{ stage.id|stringformat:"i" }}>
-                        <button type="submit">Download</button>
-                    </form>
-                {% endif %}
+                    {% if user.is_student %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="text-center">
+                                <input  type="file" name="myfile">
+                                <input  type="hidden" name="stage" value={{ stage.id|stringformat:"i" }}>
+                                <button class="btn btn-primary" type="submit">Upload/Update</button>
+                            </div>
+                        </form>
+                        <br>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="submission" value={{ stage.id|stringformat:"i" }}>
+                            <div class="text-center">
+                                <button class="btn btn-primary"  type="submit">Download</button>
+                            </div>
+
+                        </form>
+                    {% endif %}
+                </div>
+                <br>
             {% endfor %}
         </div>
             {% if user.is_teacher %}
-            <div class="col-lg-4 offset-lg-2">
+            <div class="col-lg-6 offset-lg-3">
                 <p>Criar nova etapa</p>
                 <div>
                     <form method="POST" action="{% url 'stages' subject.id %}">

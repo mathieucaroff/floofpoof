@@ -20,26 +20,26 @@
 <br>
 <div class="container ">
     <div class="row ">
-        <div class="col-lg-4 border-right border-left border-dark text-center offset-lg-1">
+        <div class="col-lg-4 text-center offset-lg-1" id="list_task_container">
             <h3>Tarefas agendadas:</h3>
             {% for task in unfinished_tasks %}
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action" href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+                <div class="list-group" >
+                    <a id="task_for_do" class="list-group-item list-group-item-action" href="{% url 'this-task' task.id %}">{{ task.name }}</a>
                 </div>
                 <br>
             {% endfor %}
             <h3>Tarefas terminadas:</h3>
             {% for task in finished_tasks %}
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action" href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+                    <a class="list-group-item list-group-item-action " href="{% url 'this-task' task.id %}">{{ task.name }}</a>
                 </div>
                 <br>
             {% endfor %}
         </div>
 
-<div class="col-lg-3 offset-lg-2">
+<div class="col-lg-3 offset-lg-2" id="create_task_container">
 
-<h2>Criar tarefa</h2>
+<h2 class="text-center">Criar tarefa</h2>
     <form class="form-group" method="POST" action="{% url 'tasks' subject.id %}" autocomplete="off">
         {% csrf_token %}
         <label>Nome:</label>
@@ -51,7 +51,9 @@
         <label>Prazo:</label>
         <input class="form-control" type='date' name="deadline" required="">
         <br>
-        <input class="btn btn-outline-success" type="submit" value="Criar tarefa">
+        <div class="text-center">
+            <input class="btn btn-success" type="submit" value="Criar tarefa">
+        </div>
     </form>
 </div>
     </div>

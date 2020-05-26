@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="row centerd">
-        <div class="col-lg-4 offset-lg-4">
+        <div class="col-lg-4 offset-lg-4" id="new_meeting_container">
             <form method="POST" action="{% url 'new-meeting' subject.id %}">
                 {% csrf_token %}
                 <label>Nome</label>

@@ -29,7 +29,7 @@
 <div class="container">
     <div class="row centered">
         <div class="col-lg-4 offset-lg-4">
-            <a  class="btn btn-block btn-outline-success" href="{% url 'groups-create' subject.id %}">Criar grupo</a>
+            <a  class="btn btn-block btn-success" href="{% url 'groups-create' subject.id %}">Criar grupo</a>
         </div>
     </div>
 </div>
@@ -37,25 +37,47 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col"><h5>Escolhe um grupo</h5> </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 offset-lg3">
+        <div class="col-lg-6 offset-lg-3" id="join_group_list_contaier">
+            <h5>Escolhe um grupo</h5> 
+            <hr>
+
+
             {% if groups %}
-    <form method="POST" action="{% url 'groups-join' subject.id %}">
-    {% csrf_token %}
-    {% for group in groups %}
-        <input required="" type="radio" id={{group.id}} name="group_id" value={{group.id}}>
-        <label for={{group.id}}>{{ group.name }}</label><br>
-        <br>
-    {% endfor %}
-    <input type="submit" value="Entrar">
-    </form>
-{% endif %}
+                <form method="POST" action="{% url 'groups-join' subject.id %}">
+                    {% csrf_token %}
+                    {% for group in groups %}
+                    <div  id="lalala" >
+                        <input  class="las" required="" type="radio" id={{group.id}} name="group_id" value={{group.id}}>
+                        <label   for={{group.id}}>{{ group.name }}</label><br>
+                    </div>
+                        <br>
+                    {% endfor %}
+                </div>
+    </div>  
+                <div class="row">
+                    <div class="col-lg-2 offset-lg-5 text-center"  style="padding-top: 20px;">         
+                        <input class="btn btn-primary" type="submit" value="Entrar">
+                    </div>
+                </div>
+                    
+                </form>
+            {% endif %}
 
         </div>
     </div>
 </div>
+{% block script %}
+<script>
+
+$(document).ready(function(){
+    $('#lalala').click(function() {
+    $(".las").prop( "checked", true )
+})
+});
+
+
+</script>
+{% endblock %}
 
 
 {% endblock %}

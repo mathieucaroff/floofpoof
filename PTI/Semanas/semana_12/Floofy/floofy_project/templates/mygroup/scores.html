@@ -52,42 +52,46 @@
                 </div>
             </div>
         </div>
+        <br>
 {% endif %}
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 offset-lg-2">
+        <div class="col-lg-4 offset-lg-2" id="srore_member_yes">
             <p class="text-success">Avaliados:</p>
             {% for member in voted %}
-                <p>{{ member.firstname }} {{ member.surname }}</p>
+                <p >{{ member.firstname }} {{ member.surname }}</p>
                 
-                <p style="margin-left: 35px;">{{ member.getAVGScore }}</p>
+                <p >{{ member.getAVGScore }}</p>
             {% endfor %}
         </div>
-        <div class="col-lg-4 offset-lg-2">
+        <div class="col-lg-4 offset-lg-2" id="srore_member_no">
             <p class="text-danger">Não avaliados:</p>
             {% for member in notvoted %}
-                <p>{{ member.firstname }} {{ member.surname }}</p>
-                <form method="POST" action="{% url 'scores' subject.id %}">
+                <p class="text-left">{{ member.firstname }} {{ member.surname }}</p>
+                <form method="POST" action="{% url 'scores' subject.id %}" >
                     {% csrf_token %}
-                    <input type="hidden" id={{member.id}} name="member_id" value={{member.id}}>
-                    <input type="radio" id="1" name="score" value="1">
-                    <label for="1"}>1</label>
-        
-                    <input type="radio" id="2" name="score" value="2">
-                    <label for="2"}>2</label>
-        
-                    <input type="radio" id="3" name="score" value="3">
-                    <label for="3"}>3</label>
-        
-                    <input type="radio" id="4" name="score" value="4">
-                    <label for="4"}>4</label>
-        
-                    <input type="radio" id="5" name="score" value="5">
-                    <label for="5"}>5</label>
-                    <label>Comentário (opcional)</label>
-                    <input  class="form-control" type='text' name="description">
-                    <input type="submit" value="Avaliar">
+                    <div class="form-group form-check">
+                        <input class="form-check-input" type="hidden" id={{member.id}} name="member_id" value={{member.id}}>
+                        <input  class="form-check-input"type="radio" id="1" name="score" value="1" required="">
+                        <label class="form-check-label" for="1"}>1</label>
+            
+                        <input type="radio" id="2" name="score" value="2">
+                        <label for="2"}>2</label>
+            
+                        <input type="radio" id="3" name="score" value="3">
+                        <label for="3"}>3</label>
+            
+                        <input type="radio" id="4" name="score" value="4">
+                        <label for="4"}>4</label>
+            
+                        <input type="radio" id="5" name="score" value="5">
+                        <label for="5"}>5</label>
+                        <label>Comentário (opcional)</label>
+                        <input  class="form-control" type='text' name="description"><br>
+                        <input class="btn btn-primary"  type="submit" value="Avaliar">
+                    </div>
+
                 </form>
             {% endfor %}
         </div>
