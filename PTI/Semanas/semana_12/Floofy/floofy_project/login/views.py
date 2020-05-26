@@ -94,3 +94,23 @@ def friday(request):
     context['blocks'] = blocks
     context['day'] = "Sexta feira"
     return render(request, 'login/dayschedule.html', context)
+
+def select_subject_page(request):
+    return render(request, 'login/select_subject_page.html')
+
+def subject_page(request,sub_id=None):
+    if request.method == "GET":
+        subject = Subject.objects.get(id=sub_id)
+        context = {}
+        context['subject'] = subject
+        context['students'] = []
+        context['teachers'] = []
+        for user in subject.user_set.all():
+
+            if user.is_student:
+                context['students'].append(user)
+            else:
+                context['teachers'].append(user)
+
+
+        return render(request, 'login/subject_page.html', context)

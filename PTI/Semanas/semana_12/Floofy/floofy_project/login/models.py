@@ -3,11 +3,30 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 
+class Degree(models.Model):
+    name = models.CharField(unique=True,max_length=50)
+    grade = models.IntegerField(default=1)
+    years = models.IntegerField(default=3)
+
+    def __str__(self):
+        return f'{self.name}'
+
+class Year(models.Model):
+    name = models.CharField(unique=True,max_length=15)
+    beginning = models.DateField(blank=True,null=True)
+    end = models.DateField(blank=True,null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
 class Subject(models.Model):
     name = models.CharField(max_length=50)
+    code = models.CharField(max_length=4,blank=True,null=True)
     groups_max = models.IntegerField(default=7)
     groups_deadline = models.DateField(blank=True,null=True)
     groups_on = models.BooleanField(default=False)
+    degree = models.ForeignKey(Degree,blank=True,null=True, on_delete=models.CASCADE)
+    year = models.ForeignKey(Year,blank=True,null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name}'
@@ -72,6 +91,7 @@ class User(AbstractBaseUser):
     is_teacher = models.BooleanField(default=False)
     subjects = models.ManyToManyField(Subject, null=True, blank=True)
     blocks = models.ManyToManyField(Block, null=True, blank=True)
+    degree = models.ManyToManyField(Degree,blank=True,null=True)
     firstname = models.CharField(blank=True, null=True, max_length=20)
     surname = models.CharField(blank=True, null=True, max_length=20)
     #in_date = models.DateField(blank=True, null=True)
