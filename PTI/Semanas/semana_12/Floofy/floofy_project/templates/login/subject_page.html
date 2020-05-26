@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!-- {% load static %} -->
+ <div id="rf">   
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-10 offset-lg-1">
+            <h1 class="text-center"  id="area_student_title">Página da disciplina: {{ subject.name }} </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<div >
+    <div class="container " >
+        <div class="row centered" > 
+            <div class=" col-lg-4  offset-lg-4 rrr" id="tab_link">
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Fórum</a>
+                    <br>
+
+                    <br>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'groups-subject' subject.id %}">Grupos</a>
+                    <br>
+
+                </div>
+            </div>   
+    </div>
+</div>
+
+<p>Docentes:</p>
+{% for teacher in teachers %}
+<p>{{ teacher }}</p>
+{% endfor %}
+<br>
+<p>Alunos inscritos:</p>
+{% for student in students %}
+<p>{{ student }}</p>
+{% endfor %}
+<br>
+<p>Informações da cadeira:</p>
+<p>Ano letivo: {{ subject.year.name }}</p>
+<p>Curso: {{ subject.degree.name }}</p>
+
+
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'select-subject-page' %}">Back</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -12,5 +12,7 @@ urlpatterns = [
     path('schedule/wednesday/', views.wednesday, name='wednesday'),
     path('schedule/thursday/', views.thursday, name='thursday'),
     path('schedule/friday/', views.friday, name='friday'),
+    path('subjectpage/', views.select_subject_page, name='select-subject-page'),
+    path('schedule/<int:sub_id>/', views.subject_page, name='subject-page'),
     path('logout/', auth_views.LogoutView.as_view(template_name='login/logout.html'), name='logout')
 ]
