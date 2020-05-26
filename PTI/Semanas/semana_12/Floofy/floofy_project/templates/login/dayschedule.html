@@ -1,12 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-<p>{{ user.firstname }} {{ user.surname }}</p>
-<h1>Horário de {{ day }}</h1>
-{% for block in blocks %}
-    <p>Cadeira: {{ block.subject.name }}</p>
-    <p>Sala: {{ block.room }}</p>
-    <p>Período: {{ block.From }} - {{ block.To }}</p>
-    <br>
-{% endfor %}
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1 text-center">
+           <!-- <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br> -->
+           <h1 class="text-center" id="area_student_title"> Horário de {{ day }}</h1><br>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'schedule' %}">Back</a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Cadeira</th>
+            <th scope="col">Sala</th>
+            <th scope="col">Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for block in blocks %}
+                <tr>
+                    <th scope="row">{{ block.subject.name }}</th>
+                    <td>{{ block.room }}</td>
+                    <td>{{ block.From }} - {{ block.To }}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
 
 {% endblock %}

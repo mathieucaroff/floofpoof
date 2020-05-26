@@ -6,8 +6,8 @@
 <div class="container">
     <div class="row centered">
         <div class="col-lg-10 offset-lg-1 text-center">
-           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
-           <h1>Lista de grupos</h1>
+           <!-- <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br> -->
+           <h1 class="text-center" id="area_student_title">Lista de grupos</h1>
         </div>
     </div>
 </div>
@@ -35,7 +35,13 @@
 </div>
 
 <br>
-{% if groups %}
+<div class="container">
+    <div class="row">
+        <div class="col"><h5>Escolhe um grupo</h5> </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-lg3">
+            {% if groups %}
     <form method="POST" action="{% url 'groups-join' subject.id %}">
     {% csrf_token %}
     {% for group in groups %}
@@ -46,8 +52,10 @@
     <input type="submit" value="Entrar">
     </form>
 {% endif %}
-<br>
 
-<br>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

@@ -6,8 +6,8 @@
 <div class="container">
     <div class="row centered">
         <div class="col-lg-10 offset-lg-1 text-center">
-           <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br>
-           <h3 class="text-center">Area de Grupo - {{ group.name }} de {{ group.subject }}</h3>
+           <!-- <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br> -->
+           <h1 class="text-center">Area de Grupo - {{ group.name }} de {{ group.subject }}</h1>
         </div>
     </div>
 </div>
@@ -23,27 +23,27 @@
     <div class="row centered"> 
          
         
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 offset-lg-4 text-center">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 offset-lg-4 text-center rrr" id="tab_link">
                     
                    
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="{% url 'view-feedback' subject.id %}">Feedback</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'view-feedback' subject.id %}">Feedback</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="#">Fóruns</a>
+                    <a  id="link_nav"class="text-center btn btn-block btn-outline-dark" href="#">Fóruns</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="/group_chat/{{ group.id }}">Mensagens de grupo</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/group_chat/{{ group.id }}">Mensagens de grupo</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark"  href="{% url 'group-files' group.id %}">Artefactos</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark"  href="{% url 'group-files' group.id %}">Artefactos</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="{% url 'scores' subject.id %}">Pontuação</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'scores' subject.id %}">Pontuação</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="{% url 'tasks' subject.id %}">Tarefas</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'tasks' subject.id %}">Tarefas</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="{% url 'stages' subject.id %}">Etapas</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'stages' subject.id %}">Etapas</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark" href="{% url 'meetings' subject.id %}">Reuniões</a>
+                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'meetings' subject.id %}">Reuniões</a>
                     <br>
-                    <a class="text-center btn btn-block btn-outline-dark text-danger"  href="{% url 'leave-group' subject.id %}">Sair deste grupo</a>
+                    <a  id="link_nav" class="text-center btn btn-block btn-outline-dark text-danger"  href="{% url 'leave-group' subject.id %}">Sair deste grupo</a>
                 
 
             </div>

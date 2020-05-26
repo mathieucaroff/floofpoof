@@ -1,25 +1,44 @@
   
 {% extends "base.html" %}
 {% block content %}
-<h1>Disciplina: {{ subject.name }}</h1>
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Delete Post</legend>
-                <h2>Are you sure you want to delete the post "{{ object.title }}"</h2>
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
-                <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.subject.id object.id %}">Cancel</a>
-            </div>
-        </form>
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-10 offset-lg-1">
+        <!-- <h1 class="text-center" id="area_student_title">Area de estudante : {{ user.firstname }} {{ user.surname}} <br> -->
+            <h1 class="text-center" id="area_student_title"> Disciplina: {{ subject.name }}</h1>
+        </div>
     </div>
-    <div class="container">
-        <div class="row text-left">
-            <div class="col-lg-1">
-                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Back</a>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Back</a>
+        </div>
+    </div>
+</div>
+   
+<div class="container">
+    <div class="row centered">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="content-section " id="eliminar">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <div class="text-center">
+                            <legend class="border-bottom mb-4">Eliminar Post</legend>
+                        </div>
+                        
+                        <h2><samp> Tem certezxa q quere fazer isso .|. "{{ object.title }}"</samp></h2>
+                    </fieldset>
+                    <div class="form-group text-center">
+                        <button class="btn btn-outline-danger" type="submit">Sim, Eliminar!</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.subject.id object.id %}">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+    
+
 {% endblock content %}
