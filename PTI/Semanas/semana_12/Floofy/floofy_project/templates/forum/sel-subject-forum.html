@@ -25,10 +25,10 @@
 <br>
 <div class="container">
     <div class="row centered"> 
-        <div class=" col-lg-4  offset-lg-4" id="tab_link">
+        <div class=" col-lg-4  offset-lg-4" id="forum_tab_link">
                 {% for subject in user.subjects.all %}
                 <br>
-                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">{{ subject.name }}</a>
+                <a id="link_nav_forum" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">{{ subject.name }}</a>
                 <br>
                 {% endfor %}
                 <br>

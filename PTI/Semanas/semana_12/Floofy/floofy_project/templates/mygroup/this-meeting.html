@@ -39,7 +39,7 @@
 
 <div class="container">
     <div class="row"> 
-        <div class=" col-lg-3  offset-lg-2" >
+        <div class=" col-lg-3  offset-lg-2" id="this_meeting_container">
             <br>
             <p>Grupo: {{ meeting.group }}</p>
             <p>Responsável: {{ meeting.owner.firstname }}</p>
@@ -64,7 +64,7 @@
 
 
         {% if meeting.owner == user %}
-        <div class="col-lg-3 offset-lg-2 ">
+        <div class="col-lg-3 offset-lg-2 " id="this_meeting_container">
             <br>
             <div class="text-center">
                 <h4>Editar tarefa</h4>
@@ -85,7 +85,7 @@
                 <input class="form-control"  type='date' name="date"  required="">
                 <br>
                 <div class="text-center">
-                    <input class="btn btn-outline-success" type="submit" value="Editar tarefa">
+                    <input class="btn btn-success" type="submit" value="Editar tarefa">
                 </div>
                
             </form>

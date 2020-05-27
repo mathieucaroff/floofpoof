@@ -31,7 +31,7 @@
             <h3>Tarefas terminadas:</h3>
             {% for task in finished_tasks %}
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action " href="{% url 'this-task' task.id %}">{{ task.name }}</a>
+                    <a id="task_done" class="list-group-item list-group-item-action " href="{% url 'this-task' task.id %}">{{ task.name }}</a>
                 </div>
                 <br>
             {% endfor %}

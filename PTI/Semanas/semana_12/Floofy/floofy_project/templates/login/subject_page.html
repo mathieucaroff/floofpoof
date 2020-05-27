@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row centered">
             <div class="col-lg-10 offset-lg-1">
-            <h1 class="text-center"  id="area_student_title">Página da disciplina: {{ subject.name }} </h1>
+            <h1 class="text-center"  id="area_student_title">Página da disciplina: {{ subject.name }} <p>Ano letivo: {{ subject.year.name }}</p></h1>
             </div>
         </div>
     </div>
@@ -16,35 +16,21 @@
 <div >
     <div class="container " >
         <div class="row centered" > 
-            <div class=" col-lg-4  offset-lg-4 rrr" id="tab_link">
+            <div class=" col-lg-4  offset-lg-1 " id="">
+                    <a id="" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Fórum</a>
                     <br>
-                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Fórum</a>
+            </div>
+       
+            <div class=" col-lg-4  offset-lg-1 " id="">
+
+                    <a id="" class="text-center btn btn-block btn-outline-dark" href="{% url 'groups-subject' subject.id %}">Grupos</a>
+                    <br>
                     <br>
 
-                    <br>
-                    <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'groups-subject' subject.id %}">Grupos</a>
-                    <br>
-
-                </div>
-            </div>   
+           </div>
+        </div>   
     </div>
 </div>
-
-<p>Docentes:</p>
-{% for teacher in teachers %}
-<p>{{ teacher }}</p>
-{% endfor %}
-<br>
-<p>Alunos inscritos:</p>
-{% for student in students %}
-<p>{{ student }}</p>
-{% endfor %}
-<br>
-<p>Informações da cadeira:</p>
-<p>Ano letivo: {{ subject.year.name }}</p>
-<p>Curso: {{ subject.degree.name }}</p>
-
-
 <div class="container">
     <div class="row text-left">
         <div class="col-lg-1">
@@ -52,5 +38,42 @@
         </div>
     </div>
 </div>
+<br>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 " id="users_container">
+            <div><p>Curso: {{ subject.degree.name }}</p>
+            </div>
+            <hr>
+            <div id="teacher_list">
+                <p>Docentes:</p>
+                {% for teacher in teachers %}
+                    <p id="teacher">{{ teacher }}</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <br>
+            <div id="sudent_list">
+                <p>Alunos inscritos:</p>
+                {% for student in students %}
+                    <p id="student">{{ student }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-7 offset-lg-2">
+            <p>Informações da cadeira:</p>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
 
 {% endblock %}

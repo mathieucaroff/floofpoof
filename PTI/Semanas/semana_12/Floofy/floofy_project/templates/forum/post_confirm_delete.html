@@ -20,7 +20,7 @@
 <div class="container">
     <div class="row centered">
         <div class="col-lg-6 offset-lg-3">
-            <div class="content-section " id="eliminar">
+            <div class="content-section " id="forum_container_delet_post">
                 <form method="POST">
                     {% csrf_token %}
                     <fieldset class="form-group">
@@ -28,11 +28,11 @@
                             <legend class="border-bottom mb-4">Eliminar Post</legend>
                         </div>
                         
-                        <h2><samp> Tem certezxa q quere fazer isso .|. "{{ object.title }}"</samp></h2>
+                        <h2><samp> Tem certezxa que quere eliminar "{{ object.title }}"?</samp></h2>
                     </fieldset>
                     <div class="form-group text-center">
-                        <button class="btn btn-outline-danger" type="submit">Sim, Eliminar!</button>
                         <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.subject.id object.id %}">Cancel</a>
+                        <button class="btn btn-danger" type="submit">Sim, Eliminar!</button>
                     </div>
                 </form>
             </div>
