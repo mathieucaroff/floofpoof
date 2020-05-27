@@ -28,7 +28,7 @@
                             <legend class="border-bottom mb-4">Eliminar Post</legend>
                         </div>
                         
-                        <h2><samp> Tem certezxa que quere eliminar "{{ object.title }}"?</samp></h2>
+                        <h2><samp> Tem certeza que quer eliminar o post: "{{ object.title }}"</samp></h2>
                     </fieldset>
                     <div class="form-group text-center">
                         <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.subject.id object.id %}">Cancel</a>

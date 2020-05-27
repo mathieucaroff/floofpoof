@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-
-
 <div class="container">
   <div class="row centered">
     <div class="col-lg-6 offset-lg-3 logg_form">
@@ -30,6 +27,68 @@
     </div>
   </div>
   
-
 </div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+$(document).ready(function(){
+  
+  var logForm = $(".form-signin")
+  logForm.submit(function(event){
+    event.preventDefault()
+    var formData = $(this).serialize()
+    var endpoint = logForm.attr("data-url") || window.location.href
+    
+    $.ajax({
+      method: "POST",
+      url: endpoint,
+      data: formData,
+      success: function(response){
+        if(response['result'] == 'failed'){
+          $(".logg_form").append("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"+response["message"]+"</div>")
+        }
+        else{
+          window.location = "/"+response["href"]+"/"
+        }
+      },
+    })   
+  })
+
+})
+</script>
+
 {% endblock %}

@@ -20,8 +20,15 @@
 <div class="container">
     <div class="row centered">
         <div class="col-lg-8 offset-lg-2" id="group_file_container">
-        
- 
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             <br>
             {% for member in group.members.all %}
             <div id="group_file_member_download_list">
@@ -35,7 +42,7 @@
             {% endfor %}
                 <hr>
             <h4 class="text-danger" style="margin-bottom: 10px;">Fazer novo upload? (aviso, irá substituir a sua submissão anterior)</h4>
-            <form class="form-control-file" method="post" enctype="multipart/form-data">
+            <form class="form-control-file upload_form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input class="form-control-file" type="file" required="" name="myfile"><br>
                 <input class="form-control-file" type="hidden" name="upload" value={{ user.id|stringformat:"i" }}>
@@ -44,8 +51,13 @@
                 </div>
             </form>
             <br>
-
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+</script>
 {% endblock %}

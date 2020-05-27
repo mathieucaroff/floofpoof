@@ -4,6 +4,7 @@ from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from login.models import User, Group, Subject, Block
+from django.http import JsonResponse
 
 def is_student(user):
     return user.is_student
@@ -25,25 +26,28 @@ def loggedteacher(request):
 def log_in(request):
     if (request.method == 'POST'):
         
+        response_data = {}
         email = request.POST.get('email') #Get username value from form
         password = request.POST.get('password') #Get password value from form
         user = authenticate(request, email=email, password=password)
-
-        #print(str(username))
-        #print(str(password))
-
 
         if user is not None:
             login(request, user)
             user_obj = User.objects.get(email=email)
             if user.is_authenticated and user_obj.is_student:
-                return redirect('logged-student') #Go to student home
+                response_data['result'] = 'done'
+                response_data['href'] = 'logged-student'
+                return JsonResponse(response_data)
+                
             elif user.is_authenticated and user_obj.is_teacher:
-                return redirect('logged-teacher') #Go to teacher home
+                response_data['result'] = 'done'
+                response_data['href'] = 'logged-teacher'
+                return JsonResponse(response_data)
+                
         else:
-            # Invalid email or password. Handle as you wish
-
-            return redirect('login-home')
+            response_data['result'] = 'failed'
+            response_data['message'] = 'Login Failed, Please check your credentials'
+            return JsonResponse(response_data)
             
     return render(request, 'login/login_home.html')
 
