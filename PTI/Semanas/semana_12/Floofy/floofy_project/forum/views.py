@@ -12,6 +12,7 @@ from django.contrib.auth.models import User as default_user
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from login.models import User, Group, Subject, Block, Post
+from django.contrib import messages
 
 def select_forum_subject(request):
     return render(request, 'forum/sel-subject-forum.html')
@@ -54,7 +55,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'forum/post_form.html'
     fields = ['title', 'content']
-
+    success_message = 'Post successfully added'
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         subid = self.kwargs['sub_id']
