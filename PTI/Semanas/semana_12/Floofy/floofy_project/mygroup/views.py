@@ -9,8 +9,6 @@ from groups.views import Select_Subject, join_group
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.files import File
-from django.http import JsonResponse
-from django.contrib import messages
 import os
 
 def mygroup(request, sub_id=None):
@@ -211,11 +209,8 @@ def group_files(request,group_id=None):
     
     elif request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        user = User.objects.get(id=request.POST.get('upload'))
-        user.set_uploaded_file(myfile.name)
         fs = FileSystemStorage()
-        filename = fs.save("student_files"+"/"+"mgf" + "_" + str(context['group'].id) + "_" + str(request.POST.get('upload'))+"/"+myfile.name, myfile)
-        messages.success(request, 'File uploaded successfully')
+        filename = fs.save("mgf" + "_" + str(context['group'].id) + "_" + str(request.POST.get('upload')), myfile)
 
     return render(request, 'mygroup/group-files.html', context)
     

@@ -4,9 +4,6 @@ from django.utils import timezone
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
 
-profilePicFS = FileSystemStorage(location='/media/profile_photos')
-studentFS = FileSystemStorage(location='/media/student_files')
-
 class Degree(models.Model):
     name = models.CharField(unique=True,max_length=50)
     grade = models.IntegerField(default=1)
@@ -96,8 +93,6 @@ class User(AbstractBaseUser):
     degree = models.ManyToManyField(Degree,blank=True,null=True)
     firstname = models.CharField(blank=True, null=True, max_length=20)
     surname = models.CharField(blank=True, null=True, max_length=20)
-    photo = models.ImageField(storage=profilePicFS, null=True, blank=True)
-    uploaded_file = models.FileField(storage=studentFS, null=True, blank=True)
     #in_date = models.DateField(blank=True, null=True)
     objects = UserManager()
 
@@ -128,10 +123,6 @@ class User(AbstractBaseUser):
         for score in range(num):
             avg += float(scores[score].value)
         return avg/num
-    
-    def set_uploaded_file(self, file):
-        self.uploaded_file = file
-        self.save(update_fields=['uploaded_file'])
 
     @property
     def is_staff(self):
