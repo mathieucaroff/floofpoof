@@ -26,7 +26,7 @@
 <br>
 <div id="forum_container" class="container">
     <table class="table table-striped">
-        <thead>
+        <thead  id="forum_header_table">
             <tr>
                 <th scope="col">Título</th>
                 <th scope="col">Autort</th>
@@ -37,7 +37,7 @@
         <tbody>
 
             {% for post in posts %}
-                    <tr>
+                    <tr id="line_forum">
                         <th scope="row"><h4><a href="{% url 'post-detail' post.subject.id post.id %}"> {{ post.title }}</a></h4></th>
                         <td>{{ post.author }}</td>
                         <td> {{ post.content }}</td>

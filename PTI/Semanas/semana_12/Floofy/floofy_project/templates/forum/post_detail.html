@@ -19,19 +19,19 @@
 </div>
 <div class="container">
   <div class="row text-center">
-    <div class="col-lg-6 offset-lg-3">
+    <div class="col-lg-6 offset-lg-3" id="forum_container_info">
       <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
-              <h4><a class="mr-6" href="#"> {{ object.author }}</a></h4>
+              <h4>Autor:<a class="mr-6" href="#"> {{ object.author }}</a></h4>
               <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
             </div>
             <h2 class="article-title">{{ object.title }}</h2>
-            <p class="article-content">{{ object.content }}</p>
+            <p class="article-content">Conteudo: {{ object.content }}</p>
             {% if object.author == user %}
             <div>
-              <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.subject.id object.id %}">Update</a>
-              <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.subject.id object.id %}">Delete</a>
+              <a class="btn btn-secondary btn-sm mt-2 mb-2" href="{% url 'post-update' object.subject.id object.id %}">Update</a>
+              <a class="btn btn-danger btn-sm mt-2 mb-2" href="{% url 'post-delete' object.subject.id object.id %}">Delete</a>
             </div>
           {% endif %}
           {% if messages %}
