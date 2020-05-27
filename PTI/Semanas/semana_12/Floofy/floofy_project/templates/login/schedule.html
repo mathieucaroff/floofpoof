@@ -13,7 +13,11 @@
 <div class="container">
     <div class="row text-left">
         <div class="col-lg-1">
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-student' %}">Back</a>
+            {% if user.is_student %}
+                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-student' %}">Back</a>
+                {% else %}
+                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-teacher' %}">Back</a>
+                {% endif %}
         </div>
     </div>
 </div>

@@ -8,13 +8,28 @@ from django.views.generic.edit import FormMixin
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from login.models import User
+from django.shortcuts import redirect, render
 
 # Create your views here.
+
+def search_user(request):
+    if request.method == "POST":
+        response = redirect('/chat/' + "results-for-" + str(request.POST.get('name')))
+        return response
+    else:
+        return render(request, 'users_chat/search_user.html')
+
+
 
 class MyContactsView(LoginRequiredMixin, ListView):
     template_name = 'users_chat/myContacts.html'
     def get_queryset(self):
-        return User.objects.exclude(email="admin@gmail.com").exclude(email=self.request.user.email)
+        results = set()
+        for user in User.objects.exclude(is_admin=True).exclude(email=self.request.user.email).filter(firstname=self.kwargs['query']):
+            results.add(user)
+        for user in User.objects.exclude(is_admin=True).exclude(email=self.request.user.email).filter(surname=self.kwargs['query']):
+            results.add(user)
+        return results
 
 class ThreadView(LoginRequiredMixin, FormMixin, DetailView):
 

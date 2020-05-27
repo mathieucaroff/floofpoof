@@ -5,14 +5,14 @@
     <div class="row centered">
         <div class="col-lg-10 offset-lg-1 text-center">
            <!-- <h1 class="text-center" id="area_student_title">{{ user.firstname }} {{ user.surname}} </h1><br> -->
-           <h1 class="text-center" id="area_student_title">Meus Contactos </h1><br>
+           <h1 class="text-center" id="area_student_title">Resultados de pesquisa </h1><br>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row text-left">
         <div class="col-lg-1">
-            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-student' %}">Back</a>
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="/chat/">Back</a>
         </div>
     </div>
 </div>
@@ -22,13 +22,12 @@
         <div class="col-lg-4 offset-lg-4">
             <div id="contacts-items">
                 {% for instance in object_list %}
-                    <a id="btn_contacts" class="btn btn-block" href="./{{ instance.id }}/">{{ instance }}</a>
+                    <a id="btn_contacts" class="btn btn-block" href="/chat/{{ instance.id }}/">{{ instance }}</a>
                     <br>
                 {% endfor %}
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
