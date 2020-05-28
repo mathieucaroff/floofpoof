@@ -91,10 +91,10 @@ DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'pti04db',
-    #     'USER': 'pti04',
-    #     'PASSWORD': 'wrUrhz3t9S8oX4tQgLNe',
-    #     'HOST': 'pti04db.crrb9p6o8wll.eu-west-3.rds.amazonaws.com',
-    #     'PORT': '3306',
+    #     'USER': 'pti04_admin',
+    #     'PASSWORD': 'apTxYIROA13MDKEEJVGE',
+    #     'HOST': 'pti04db.cgclbw7mjeh7.us-east-1.rds.amazonaws.com',
+    #     'PORT': '3304',
     # }
 
 }
