@@ -139,6 +139,11 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
+# Extra places for collectstatic to find static files.
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
 
 AUTH_USER_MODEL = 'login.User'
 
@@ -151,7 +156,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis://:E6A5A599D46378BF42828B08FF6FBD763A13EDF2AE60B50C7E605B7DF0CCFBBF@127.0.0.1:6474")],
+            "hosts": [("redis://:E6A5A599D46378BF42828B08FF6FBD763A13EDF2AE60B50C7E605B7DF0CCFBBF@127.0.0.1:6379")],
         }
     }
 }
