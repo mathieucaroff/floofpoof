@@ -22,3 +22,10 @@ heroku buildpacks:add heroku/python --app $appId
 - `buildpacks:add` adds a build pack to the list of buildpacks that are to be executed in order
 - `python-poetry-buildpack` is because heroku does not _yet_ handle **Poetry** (shame on them! the pull requests have been waiting for allmost 5 months!)
 - `heroku/python` is to finally install the python dependencies
+
+Setting up PostGreSQL:
+
+- Add the postgreSQL addon:
+  - `heroku addons:create heroku-postgresql:hobby-dev --app $appId`
+- Check that it is there by running: `heroku addons`
+- (Heroku populates the `DATABASE_URL` environment variable, which can then be consumed by `dj-database-url`)

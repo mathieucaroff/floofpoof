@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 # import django.db.backends.mysql
 
+import dj_database_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -82,7 +84,6 @@ ASGI_APPLICATION = "floofy_project.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -96,8 +97,11 @@ DATABASES = {
     #     'HOST': 'pti04db.cgclbw7mjeh7.us-east-1.rds.amazonaws.com',
     #     'PORT': '3304',
     # }
-
 }
+
+# https://riptutorial.com/django/example/10056/using-a-database-url-from-the-environment
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
 
 
 # Password validation
