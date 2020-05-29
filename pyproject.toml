@@ -11,6 +11,7 @@ daphne = "^2.5.0"
 channels = "^2.4.0"
 channels_redis = "^2.4.2"
 dj-database-url = "^0.5.0"
+psycopg2-binary = "^2.8.5"
 
 [tool.poetry.dev-dependencies]
 

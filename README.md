@@ -29,3 +29,6 @@ Setting up PostGreSQL:
   - `heroku addons:create heroku-postgresql:hobby-dev --app $appId`
 - Check that it is there by running: `heroku addons`
 - (Heroku populates the `DATABASE_URL` environment variable, which can then be consumed by `dj-database-url`)
+
+Note: `psycopg2-binary` is a shadow dependency of Django / PostgreSQL. See:
+[Error: No module named psycopg2.extensions](https://stackoverflow.com/a/49308720/9878263)
