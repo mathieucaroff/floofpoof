@@ -32,3 +32,13 @@ Setting up PostGreSQL:
 
 Note: `psycopg2-binary` is a shadow dependency of Django / PostgreSQL. See:
 [Error: No module named psycopg2.extensions](https://stackoverflow.com/a/49308720/9878263)
+
+Adding a superuser:
+
+(follow https://docs.djangoproject.com/en/1.8/intro/tutorial02/)
+
+```
+$ heroku run --app $appId -- python manage.py createsuperuser --email=admin@gmail.com
+
+> 1234567890
+```

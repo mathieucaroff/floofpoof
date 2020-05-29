@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="rf">   
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-10 offset-lg-1">
+            <!-- <h1 class="text-center" id="area_student_title"> {{ user.firstname }} {{ user.surname}} </h1> -->
+            <h1 class="text-center" id="area_student_title"> Horário </h1><br>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            {% if user.is_student %}
+                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-student' %}">Back</a>
+                {% else %}
+                <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'logged-teacher' %}">Back</a>
+                {% endif %}
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 offset-lg-1">
+            <!-- <br> -->
+            <a   id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'monday' %}">Segunda</a>
+            <!-- <br> -->
+            <!-- <a style="max-height: 60px; width: 100%;" id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'tuesday' %}">Terça</a> -->
+            <!-- <br> -->
+            <!-- <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'wednesday' %}">Quarta</a> -->
+            <!-- <br> -->
+            <!-- <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'thursday' %}">Quinta</a> -->
+            <!-- <br> -->
+            <!-- <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'friday' %}">Sexta</a> -->
+            <!-- <br> -->
+            </div>
+            <div class="col-lg-2 ">
+                <a  id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'tuesday' %}">Terça</a>
+            </div>
+            <div class="col-lg-2 ">
+                <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'wednesday' %}">Quarta</a>
+            </div>
+            <div class="col-lg-2 ">
+                <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'thursday' %}">Quinta</a>
+            </div>
+            <div class="col-lg-2 ">
+                <a id="link_days" class="text-center btn btn-block btn-outline-dark" href="{% url 'friday' %}">Sexta</a>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
