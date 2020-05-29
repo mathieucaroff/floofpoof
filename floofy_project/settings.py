@@ -15,6 +15,8 @@ import os
 
 import dj_database_url
 
+import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -99,9 +101,11 @@ DATABASES = {
     # }
 }
 
+# DATABASE_URL <> https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
 # https://riptutorial.com/django/example/10056/using-a-database-url-from-the-environment
 if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
+    # Change 'default' database configuration with $DATABASE_URL.
+    DATABASES['default'].update(dj_database_url.config())
 
 
 # Password validation
@@ -159,3 +163,6 @@ CHANNEL_LAYERS = {
         }
     }
 }
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
