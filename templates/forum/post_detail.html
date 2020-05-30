@@ -1,0 +1,43 @@
+  
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row centered">
+      <div class="col-lg-10 offset-lg-1">
+      <!-- <h1 class="text-center" id="area_student_title">Area de estudante : {{ user.firstname }} {{ user.surname}} <br> -->
+          <h1 class="text-center" id="area_student_title"> Disciplina: {{ subject.name }}</h1>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row text-left">
+      <div class="col-lg-1">
+          <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'forum' subject.id %}">Back</a>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-lg-6 offset-lg-3" id="forum_container_info">
+      <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+              <h4>Autor:<a class="mr-6" href="#"> {{ object.author }}</a></h4>
+              <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">Conteudo: {{ object.content }}</p>
+            {% if object.author == user %}
+            <div>
+              <a class="btn btn-secondary btn-sm mt-2 mb-2" href="{% url 'post-update' object.subject.id object.id %}">Update</a>
+              <a class="btn btn-danger btn-sm mt-2 mb-2" href="{% url 'post-delete' object.subject.id object.id %}">Delete</a>
+            </div>
+            {% endif %}
+          </div>
+        </article>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

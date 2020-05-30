@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="rf">   
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-10 offset-lg-1">
+            <h1 class="text-center" id="area_student_title">Pontuação </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row text-left">
+        <div class="col-lg-1">
+            <a id="link_nav" class="text-center btn btn-block btn-outline-dark" href="{% url 'mygroup' subject.id %}"> Back</a>
+        </div>
+    </div>
+</div>
+<br>
+{% if user.getAVGScore %}
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-6 offset-lg-3 border border-secondary rounded">
+                <p>Minha pontuação média:</p>
+                <p>{{ user.getAVGScore }}</p>
+            </div>
+        </div>
+    </div>
+    
+    {% if comments %}
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-6 offset-lg-3">
+                    <p>Comentários recebidos:</p>
+                    {% for comment in comments %}
+                    <p>{{ comment }}</p>
+                    {% endfor%}
+                </div>
+            </div>
+        </div>
+        <br>
+
+        {% endif %}
+{% else %}
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-6 offset-lg-3 border border-secondary rounded">
+                    <p>Ainda não recebeu nenhuma pontuação.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-2" id="srore_member_yes">
+            <p class="text-success">Avaliados:</p>
+            {% for member in voted %}
+                <p >{{ member.firstname }} {{ member.surname }}</p>
+                
+                <p >{{ member.getAVGScore }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4 offset-lg-2" id="srore_member_no">
+            <p class="text-danger">Não avaliados:</p>
+            {% for member in notvoted %}
+                <p class="text-left">{{ member.firstname }} {{ member.surname }}</p>
+                <form method="POST" action="{% url 'scores' subject.id %}" >
+                    {% csrf_token %}
+                    <div class="form-group form-check">
+                        <input class="form-check-input" type="hidden" id={{member.id}} name="member_id" value={{member.id}}>
+                        <input  class="form-check-input"type="radio" id="1" name="score" value="1" required="">
+                        <label class="form-check-label" for="1"}>1</label>
+            
+                        <input type="radio" id="2" name="score" value="2">
+                        <label for="2"}>2</label>
+            
+                        <input type="radio" id="3" name="score" value="3">
+                        <label for="3"}>3</label>
+            
+                        <input type="radio" id="4" name="score" value="4">
+                        <label for="4"}>4</label>
+            
+                        <input type="radio" id="5" name="score" value="5">
+                        <label for="5"}>5</label>
+                        <label>Comentário (opcional)</label>
+                        <input  class="form-control" type='text' name="description"><br>
+                        <input class="btn btn-primary"  type="submit" value="Avaliar">
+                    </div>
+
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
