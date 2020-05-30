@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 # import django.db.backends.mysql
 
+import dj_database_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -96,9 +98,13 @@ DATABASES = {
     #     'HOST': 'pti04db.cgclbw7mjeh7.us-east-1.rds.amazonaws.com',
     #     'PORT': '3304',
     # }
-
 }
 
+# DATABASE_URL <> https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
+# https://riptutorial.com/django/example/10056/using-a-database-url-from-the-environment
+if os.environ.get('DATABASE_URL'):
+    # Change 'default' database configuration with $DATABASE_URL.
+    DATABASES['default'].update(dj_database_url.config())
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
