@@ -47,3 +47,9 @@ Setting up Redis:
 ```
 heroku addons:create heroku-redis:hobby-dev --app $appId
 ```
+
+Setting daily database backup (time is UTC time) (the minutes must always be `00`):
+
+```
+heroku pg:backups:schedule --app $appId --at="12:00"
+```
