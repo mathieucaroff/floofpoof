@@ -41,3 +41,9 @@ Adding a superuser:
 $ heroku run --app $appId -- python manage.py createsuperuser --email=admin@gmail.com
 > a
 ```
+
+Setting up Redis:
+
+```
+heroku addons:create heroku-redis:hobby-dev --app $appId
+```
